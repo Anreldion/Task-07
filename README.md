@@ -1,4 +1,2 @@
-# Task-06 
-Database development
-
-- Находится в разработке
+# Task-07 
+LINQ. LINQ to SQL
