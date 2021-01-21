@@ -69,6 +69,8 @@
     <Build Include="Tables\Sessions.sql" />
     <Build Include="Tables\EducationForms.sql" />
     <Build Include="Tables\SessionPeriods.sql" />
+    <Build Include="Tables\Specialties.sql" />
+    <Build Include="Tables\Examiners.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SessionResultsDatabase.refactorlog" />

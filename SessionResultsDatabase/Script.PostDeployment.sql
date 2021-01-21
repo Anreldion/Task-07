@@ -8,11 +8,16 @@ GO
 INSERT INTO [dbo].[EducationForms] ([Name]) VALUES  ('Extramural') 
 GO
 
-INSERT INTO [dbo].[Groups] ([Name]) VALUES  ('PE') 
+INSERT INTO [dbo].[Specialties] ([Name]) VALUES  ('Electronic engineer') 
 GO
-INSERT INTO [dbo].[Groups] ([Name]) VALUES  ('PGS') 
+INSERT INTO [dbo].[Specialties] ([Name]) VALUES  ('Building engineer') 
+
 GO
-INSERT INTO [dbo].[Groups] ([Name]) VALUES  ('ZPE') 
+INSERT INTO [dbo].[Groups] ([Name],[SpecialtiesID]) VALUES  ('PE',1) 
+GO
+INSERT INTO [dbo].[Groups] ([Name],[SpecialtiesID]) VALUES  ('PGS',2) 
+GO
+INSERT INTO [dbo].[Groups] ([Name],[SpecialtiesID]) VALUES  ('ZPE',1) 
 GO
 
 INSERT INTO [dbo].[Subjects] ([Name]) VALUES  ('Math') 
@@ -47,60 +52,70 @@ GO
 INSERT INTO [dbo].[Sessions] ([SessionPeriodId],[DateFrom],[DateTo]) VALUES  (3, '2021-1-5', '2021-1-6') 
 GO
 
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2020-1-12', 1, 1, 1, 1) 
+INSERT INTO [dbo]. [Examiners] ([Surname], [Name], [MiddleName]) VALUES ('Borisov', 'Alexander', 'Alexandrovich')
 GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2020-5-12', 2, 1, 1, 2) 
+INSERT INTO [dbo]. [Examiners] ([Surname], [Name], [MiddleName]) VALUES ('Krasnova', 'Angelina', 'Romanovna')
 GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2020-10-12', 3, 1, 1, 1) 
+INSERT INTO [dbo]. [Examiners] ([Surname], [Name], [MiddleName]) VALUES ('Mayorov', 'Nikolay', 'Daniilovich')
 GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2020-15-12', 4, 1, 1, 2) 
+INSERT INTO [dbo]. [Examiners] ([Surname], [Name], [MiddleName]) VALUES ('Makarov', 'Artyom', 'Demidovich')
 GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2020-20-12', 5, 1, 1, 1) 
+INSERT INTO [dbo]. [Examiners] ([Surname], [Name], [MiddleName]) VALUES ('Ponomareva', 'Alisa', 'Semyonovna')
 GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2020-25-12', 6, 1, 1, 2) 
-GO
-
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2020-1-12', 1, 1, 2, 1) 
-GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2020-5-12', 2, 1, 2, 2) 
-GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2020-10-12', 3, 1, 2, 1) 
-GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2020-15-12', 4, 1, 2, 2) 
-GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2020-20-12', 5, 1, 2, 1) 
-GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2020-25-12', 6, 1, 2, 2) 
+INSERT INTO [dbo]. [Examiners] ([Surname], [Name], [MiddleName]) VALUES ('Kharitonova', 'Vera', 'Dmitrievna')
 GO
 
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2021-10-5', 1, 2, 1, 1) 
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2020-1-12', 1, 1, 1, 1,1) 
 GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2021-10-5', 2, 2, 1, 2) 
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2020-5-12', 2, 1, 1, 2,2) 
 GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2021-10-5', 3, 2, 1, 1) 
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2020-10-12', 3, 1, 1, 1,3) 
 GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2021-1-5', 4, 2, 1, 2) 
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2020-15-12', 4, 1, 1, 2,4) 
 GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2021-5-5', 5, 2, 1, 1) 
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2020-20-12', 5, 1, 1, 1,5) 
 GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2021-10-5', 6, 2, 1, 2) 
-GO
-
-
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2021-10-5', 1, 2, 2, 1) 
-GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2021-10-5', 2, 2, 2, 2) 
-GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2021-10-5', 3, 2, 2, 1) 
-GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2021-1-5', 4, 2, 2, 2) 
-GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2021-5-5', 5, 2, 2, 1) 
-GO
-INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId]) VALUES  ('2021-10-5', 6, 2, 2, 2) 
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2020-25-12', 6, 1, 1, 2,6) 
 GO
 
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2020-1-12', 1, 1, 2, 1,1) 
+GO
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2020-5-12', 2, 1, 2, 2,2) 
+GO
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2020-10-12', 3, 1, 2, 1,3) 
+GO
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2020-15-12', 4, 1, 2, 2,4) 
+GO
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2020-20-12', 5, 1, 2, 1,5) 
+GO
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2020-25-12', 6, 1, 2, 2,6) 
+GO
 
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2021-10-5', 1, 2, 1, 1,1) 
+GO
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2021-10-5', 2, 2, 1, 2,2) 
+GO
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2021-10-5', 3, 2, 1, 1,3) 
+GO
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2021-1-5', 4, 2, 1, 2,4) 
+GO
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2021-5-5', 5, 2, 1, 1,5) 
+GO
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2021-10-5', 6, 2, 1, 2,6) 
+GO
+
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2021-10-5', 1, 2, 2, 1,1) 
+GO
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2021-10-5', 2, 2, 2, 2,2) 
+GO
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2021-10-5', 3, 2, 2, 1,3) 
+GO
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2021-1-5', 4, 2, 2, 2,4) 
+GO
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2021-5-5', 5, 2, 2, 1,5) 
+GO
+INSERT INTO [dbo].[Schedules] ([Date],[SubjectId],[SessionId],[GroupId],[TestFormId],[ExaminerID]) VALUES  ('2021-10-5', 6, 2, 2, 2,6) 
+GO
 
 INSERT INTO [dbo]. [Students] ([Name], [Surname], [MiddleName], [GenderId], [DateofBirth], [GroupId], [EducationFormId]) VALUES ('Yuri', 'Belozerov', 'Aleksandrovich ', 1,' 2000-1-1 ', 1, 1)
 GO
@@ -164,7 +179,6 @@ INSERT INTO [dbo]. [Students] ([Name], [Surname], [MiddleName], [GenderId], [Dat
 GO
 INSERT INTO [dbo]. [Students] ([Name], [Surname], [MiddleName], [GenderId], [DateofBirth], [GroupId], [EducationFormId]) VALUES ('Kharitina', 'Koroleva', 'Gelasyevna ', 2,' 2001-3-12 ', 3, 2)
 GO
-
 
 INSERT INTO [dbo].[Results] ([SessionId],[StudentId],[SubjectId],[Mark]) VALUES (1,1,1,4) 
 GO

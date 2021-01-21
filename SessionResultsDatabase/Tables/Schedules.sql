@@ -7,11 +7,13 @@
     [GroupId] INT NOT NULL, 
     [TestFormId] INT NOT NULL,
     
-    CONSTRAINT [FK_dbo.Schedules.SubjectId] FOREIGN KEY ([SubjectId]) REFERENCES [dbo].[Subjects]([Id]),
-    CONSTRAINT [FK_dbo.Schedules.GroupId] FOREIGN KEY ([GroupId]) REFERENCES [dbo].[Groups]([Id]), 
-    CONSTRAINT [FK_dbo.Schedules.TestFormId] FOREIGN KEY ([TestFormId]) REFERENCES [dbo].[TestForms]([Id]), 
-    CONSTRAINT [FK_dbo.Schedules.SessionId] FOREIGN KEY ([SessionId]) REFERENCES [dbo].[TestForms]([Id]), 
+    [ExaminerID] INT NOT NULL, 
+    CONSTRAINT [FK.Schedules.SubjectId] FOREIGN KEY ([SubjectId]) REFERENCES [dbo].[Subjects]([Id]),
+    CONSTRAINT [FK.Schedules.GroupId] FOREIGN KEY ([GroupId]) REFERENCES [dbo].[Groups]([Id]), 
+    CONSTRAINT [FK.Schedules.TestFormId] FOREIGN KEY ([TestFormId]) REFERENCES [dbo].[TestForms]([Id]), 
+    CONSTRAINT [FK.Schedules.SessionId] FOREIGN KEY ([SessionId]) REFERENCES [dbo].[TestForms]([Id]), 
     CONSTRAINT [PK_Schedules] PRIMARY KEY ([Id]), 
+    CONSTRAINT [FK.Schedules.ExaminerID] FOREIGN KEY ([ExaminerID]) REFERENCES [Examiners]([Id]), 
 
 
 
