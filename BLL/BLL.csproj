@@ -70,6 +70,15 @@
     <Compile Include="Task 06 Reports\SessionResult\SessionResultReport.cs" />
     <Compile Include="Task 06 Reports\SessionResult\SessionResultTable.cs" />
     <Compile Include="Task 06 Reports\SessionResult\SessionResultUnit.cs" />
+    <Compile Include="Task 07 Reports\AverageBallBySpecialties\AverageBallBySpecialtiesReport.cs" />
+    <Compile Include="Task 07 Reports\AverageBallBySpecialties\AverageBallBySpecialtiesTable.cs" />
+    <Compile Include="Task 07 Reports\AverageBallBySpecialties\AverageBallBySpecialtiesUnit.cs" />
+    <Compile Include="Task 07 Reports\AverageBallforExaminers\AverageBallforExaminersReport.cs" />
+    <Compile Include="Task 07 Reports\AverageBallforExaminers\AverageBallforExaminersTable.cs" />
+    <Compile Include="Task 07 Reports\AverageBallforExaminers\AverageBallforExaminersUnit.cs" />
+    <Compile Include="Task 07 Reports\DynamicsOfChangeInTheAverageScore\DynamicsOfChangeInTheAverageScoreReport.cs" />
+    <Compile Include="Task 07 Reports\DynamicsOfChangeInTheAverageScore\DynamicsOfChangeInTheAverageScoreTable.cs" />
+    <Compile Include="Task 07 Reports\DynamicsOfChangeInTheAverageScore\DynamicsOfChangeInTheAverageScoreUnit.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">
@@ -80,10 +89,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Task 07 Reports\AverageBallBySpecialties\" />
-    <Folder Include="Task 07 Reports\AverageBallforExaminers\" />
-    <Folder Include="Task 07 Reports\DynamicsOfChangeInTheAverageScore\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

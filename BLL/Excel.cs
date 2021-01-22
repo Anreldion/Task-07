@@ -1,9 +1,11 @@
-﻿using BusinessLogicLayer.DeductibleStudent;
+﻿using BLL.Task_07_Reports.AverageBallBySpecialties;
+using BLL.Task_07_Reports.AverageBallforExaminers;
+using BLL.Task_07_Reports.DynamicsOfChangeInTheAverageScore;
+using BusinessLogicLayer.DeductibleStudent;
 using BusinessLogicLayer.PointsByGroup;
 using BusinessLogicLayer.SessionResult;
 using OfficeOpenXml;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -151,7 +153,7 @@ namespace BusinessLogicLayer
                         workSheet.Row(i).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         workSheet.Row(i).Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
 
-                        
+
 
                         workSheet.Cells[i, 1].Value = i - 1;
                         workSheet.Cells[i, 2].Value = list[j].GroupName;
@@ -167,7 +169,7 @@ namespace BusinessLogicLayer
                 {
                     FileWorker.Open(filePath);
                 }
-               
+
             }
         }
 
@@ -229,6 +231,174 @@ namespace BusinessLogicLayer
                         workSheet.Cells[i, 4].Value = list[j].Mark;
                         workSheet.Cells[i, 5].Value = list[j].Date.ToString("dd.MM.yyyy");
                         workSheet.Cells[i, 6].Value = list[j].TestForm;
+                    }
+                    workSheet.Cells["A" + i.ToString() + ":F" + i.ToString()].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                }
+                excelPackage.Save();
+
+                if (open_after_creation)
+                {
+                    FileWorker.Open(filePath);
+                }
+            }
+        }
+
+        public static void CreateReportFile(IEnumerable<AverageBallforExaminersTable> data_table, string filePath, bool open_after_creation = false)
+        {
+            FileWorker.DeleteFileIfExists(filePath);
+            FileInfo file = new FileInfo(filePath);
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (ExcelPackage excelPackage = new ExcelPackage(file))
+            {
+                ExcelWorkbook excelWorkBook = excelPackage.Workbook;
+                foreach (var data in data_table)
+                {
+                    ExcelWorksheet workSheet = excelPackage.Workbook.Worksheets.Add(data.SessionName);
+                    SetHeaderStyle(workSheet, 1);
+                    workSheet.Column(1).Width = 4;
+                    workSheet.Column(2).Width = 30;
+                    workSheet.Column(3).Width = 10;
+
+                    workSheet.Cells["A1:C1"].Style.Font.Size = 10;
+                    workSheet.Cells["A1:C1"].Style.Font.Name = "Arial Cyr";
+                    workSheet.Cells["A1:C1"].Style.Font.Bold = true;
+                    workSheet.Cells["A1:C1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                    workSheet.Cells["B1:B1"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                    workSheet.Cells["B1:B1"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+
+                    workSheet.Cells[1, 1].Value = "№ ";
+                    workSheet.Cells[1, 2].Value = "Subject";
+                    workSheet.Cells[1, 3].Value = "Average ball";
+
+                    var list = data.table_rows.ToList();
+                    int i = 2;
+                    for (int j = 0; j < list.Count(); i++, j++)
+                    {
+                        workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.Font.Size = 10;
+                        workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.Font.Name = "Arial Cyr";
+                        workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.WrapText = true;
+                        workSheet.Cells["C" + i.ToString()].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                        workSheet.Row(i).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        workSheet.Row(i).Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+
+                        workSheet.Cells[i, 1].Value = i - 1;
+                        workSheet.Cells[i, 2].Value = list[j].Subject;
+                        workSheet.Cells[i, 3].Value = list[j].AverageBall;
+                    }
+                    workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                }
+                excelPackage.Save();
+
+                if (open_after_creation)
+                {
+                    FileWorker.Open(filePath);
+                }
+            }
+        }
+
+        public static void CreateReportFile(IEnumerable<DynamicsOfChangeInTheAverageScoreTable> data_table, string filePath, bool open_after_creation = false)
+        {
+            FileWorker.DeleteFileIfExists(filePath);
+            FileInfo file = new FileInfo(filePath);
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (ExcelPackage excelPackage = new ExcelPackage(file))
+            {
+                ExcelWorkbook excelWorkBook = excelPackage.Workbook;
+                foreach (var data in data_table)
+                {
+                    ExcelWorksheet workSheet = excelPackage.Workbook.Worksheets.Add(data.SubjectName);
+                    SetHeaderStyle(workSheet, 1);
+                    workSheet.Column(1).Width = 4;
+                    workSheet.Column(2).Width = 30;
+                    workSheet.Column(3).Width = 10;
+
+                    workSheet.Cells["A1:C1"].Style.Font.Size = 10;
+                    workSheet.Cells["A1:C1"].Style.Font.Name = "Arial Cyr";
+                    workSheet.Cells["A1:C1"].Style.Font.Bold = true;
+                    workSheet.Cells["A1:C1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                    workSheet.Cells["B1:B1"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                    workSheet.Cells["B1:B1"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+
+                    workSheet.Cells[1, 1].Value = "№ ";
+                    workSheet.Cells[1, 2].Value = "Session Period";
+                    workSheet.Cells[1, 3].Value = "Average ball";
+
+                    var list = data.table_rows.ToList();
+                    int i = 2;
+                    for (int j = 0; j < list.Count(); i++, j++)
+                    {
+                        workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.Font.Size = 10;
+                        workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.Font.Name = "Arial Cyr";
+                        workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.WrapText = true;
+                        workSheet.Cells["C" + i.ToString()].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                        workSheet.Row(i).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        workSheet.Row(i).Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+
+                        workSheet.Cells[i, 1].Value = i - 1;
+                        workSheet.Cells[i, 2].Value = list[j].SessionPeriod;
+                        workSheet.Cells[i, 3].Value = list[j].AverageBall;
+                    }
+                    workSheet.Cells["A" + i.ToString() + ":F" + i.ToString()].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                }
+                excelPackage.Save();
+
+                if (open_after_creation)
+                {
+                    FileWorker.Open(filePath);
+                }
+            }
+        }
+
+        public static void CreateReportFile(IEnumerable<AverageBallBySpecialtiesTable> data_table, string filePath, bool open_after_creation = false)
+        {
+            FileWorker.DeleteFileIfExists(filePath);
+            FileInfo file = new FileInfo(filePath);
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (ExcelPackage excelPackage = new ExcelPackage(file))
+            {
+                ExcelWorkbook excelWorkBook = excelPackage.Workbook;
+                foreach (var data in data_table)
+                {
+                    ExcelWorksheet workSheet = excelPackage.Workbook.Worksheets.Add(data.SessionName);
+                    SetHeaderStyle(workSheet, 1);
+                    workSheet.Column(1).Width = 4;
+                    workSheet.Column(2).Width = 30;
+                    workSheet.Column(3).Width = 10;
+
+                    workSheet.Cells["A1:C1"].Style.Font.Size = 10;
+                    workSheet.Cells["A1:C1"].Style.Font.Name = "Arial Cyr";
+                    workSheet.Cells["A1:C1"].Style.Font.Bold = true;
+                    workSheet.Cells["A1:C1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                    workSheet.Cells["B1:B1"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                    workSheet.Cells["B1:B1"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+
+                    workSheet.Cells[1, 1].Value = "№ ";
+                    workSheet.Cells[1, 2].Value = "Specialty";
+                    workSheet.Cells[1, 3].Value = "Average ball";
+
+                    var list = data.table_rows.ToList();
+                    int i = 2;
+                    for (int j = 0; j < list.Count(); i++, j++)
+                    {
+                        workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.Font.Size = 10;
+                        workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.Font.Name = "Arial Cyr";
+                        workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.WrapText = true;
+                        workSheet.Cells["C" + i.ToString()].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                        workSheet.Row(i).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        workSheet.Row(i).Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+
+                        workSheet.Cells[i, 1].Value = i - 1;
+                        workSheet.Cells[i, 2].Value = list[j].Specialty;
+                        workSheet.Cells[i, 3].Value = list[j].AverageBall;
                     }
                     workSheet.Cells["A" + i.ToString() + ":F" + i.ToString()].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
                 }

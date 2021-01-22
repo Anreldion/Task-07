@@ -4,8 +4,21 @@ using System.Text;
 
 namespace BusinessLogicLayer.SessionResult
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class SessionResultUnit
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="surname"></param>
+        /// <param name="middleName"></param>
+        /// <param name="subject"></param>
+        /// <param name="mark"></param>
+        /// <param name="date"></param>
+        /// <param name="testForm"></param>
         public SessionResultUnit(string name, string surname, string middleName, string subject, int mark, DateTime date, string testForm)
         {
             Name = name;
