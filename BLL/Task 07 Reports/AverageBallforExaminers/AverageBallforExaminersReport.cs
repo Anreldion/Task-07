@@ -7,11 +7,19 @@ using System.Threading.Tasks;
 
 namespace BLL.Task_07_Reports.AverageBallforExaminers
 {
+    /// <summary>
+    /// Дополнить отчёты информацией в рамках одной сессии о среднем бале по каждому экзаменатору
+    /// </summary>
     public class AverageBallforExaminersReport : Report
     {
+        /// <summary>
+        /// Class constructor <see cref="AverageBallforExaminersReport"/>
+        /// </summary>
+        /// <param name="connectionString">Database connection string</param>
         public AverageBallforExaminersReport(string connectionString) : base(connectionString)
         {
         }
+
         public IEnumerable<AverageBallforExaminersTable> GetReport(int sessionId)
         {
             return GetSessionsId().Select(s => new AverageBallforExaminersTable(GetRow(), GetSessionPeriodName(sessionId))).ToList();

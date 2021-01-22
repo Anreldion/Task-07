@@ -16,7 +16,7 @@ namespace BLL.Task_07_Reports.DynamicsOfChangeInTheAverageScore
         /// </summary>
         /// <param name="sessionPeriod"></param>
         /// <param name="averageBall"></param>
-        public DynamicsOfChangeInTheAverageScoreUnit(string sessionPeriod, string averageBall)
+        public DynamicsOfChangeInTheAverageScoreUnit(string sessionPeriod, double averageBall)
         {
             SessionPeriod = sessionPeriod;
             AverageBall = averageBall;
@@ -29,7 +29,7 @@ namespace BLL.Task_07_Reports.DynamicsOfChangeInTheAverageScore
         /// <summary>
         /// Average ball
         /// </summary>
-        public string AverageBall { get; set; }
+        public double AverageBall { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -42,7 +42,7 @@ namespace BLL.Task_07_Reports.DynamicsOfChangeInTheAverageScore
         {
             int hashCode = 1739092515;
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(SessionPeriod);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(AverageBall);
+            hashCode = hashCode * -1521134295 + EqualityComparer<double>.Default.GetHashCode(AverageBall);
             return hashCode;
         }
     }

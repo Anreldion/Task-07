@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace BLL.Task_07_Reports.DynamicsOfChangeInTheAverageScore
 {
+    /// <summary>
+    /// В рамках всех сессий вывести в виде таблицы динамику изменения среднего бала по каждому предмету по годам
+    /// </summary>
     public class DynamicsOfChangeInTheAverageScoreReport : Report
     {
         public DynamicsOfChangeInTheAverageScoreReport(string connectionString) : base(connectionString)
@@ -19,13 +22,24 @@ namespace BLL.Task_07_Reports.DynamicsOfChangeInTheAverageScore
 
         private IEnumerable<DynamicsOfChangeInTheAverageScoreUnit> GetRow(int subjectId)
         {
-            throw new NotImplementedException();
+            IEnumerable<(int, int)> marksAndSessionId = from schedules in Schedules
+            join results in Results on schedules.SessionId equals results.SessionId
+            where schedules.SubjectId == subjectId
+            select (results.Mark, schedules.SessionId);
+
+            //Average with Group By
+            var averengeBySession =
+                from mas in marksAndSessionId
+                group mas by mas.Item2 into averengeByGroup
+                select new
+                {
+                    SessionId = averengeByGroup.Key,
+                    AverengeScore = averengeByGroup.Average(a => a.Item1)
+                };
+
+            return averengeBySession.Select(s => new DynamicsOfChangeInTheAverageScoreUnit(GetSessionPeriodName(s.SessionId), s.AverengeScore));
         }
 
-        // SubjectName = subjectName;
-
-        // SessionPeriod = sessionPeriod;
-        // AverageBall = averageBall;
         public IEnumerable<DynamicsOfChangeInTheAverageScoreTable> GetReport(Func<DynamicsOfChangeInTheAverageScoreUnit, object> orderBy)
         {
             IEnumerable<DynamicsOfChangeInTheAverageScoreTable> list = GetReport();
@@ -38,5 +52,19 @@ namespace BLL.Task_07_Reports.DynamicsOfChangeInTheAverageScore
 
         int[] GetSubjectsId() => Subjects.Select(s => s.Id).ToArray();
         string GetSubjectName(int subjectId) => Subjects.FirstOrDefault(s => s.Id == subjectId)?.Name;
+        /// <summary>
+        /// Get session period name.
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <returns>Session period name</returns>
+        string GetSessionPeriodName(int sessionId)
+        {
+            IEnumerable<(string, DateTime, DateTime)> name = from sessions in Sessions
+                                                             join period in SessionPeriods on sessions.SessionPeriodId equals period.Id
+                                                             where sessionId == sessions.Id
+                                                             select (period.Name, sessions.DateFrom, sessions.DateTo);
+
+            return $"{name.Last().Item1} ({name.Last().Item2:dd.MM.yy} - {name.Last().Item3:dd.MM.yy})";
+        }
     }
 }
