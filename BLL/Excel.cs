@@ -243,7 +243,7 @@ namespace BusinessLogicLayer
             }
         }
 
-        public static void CreateReportFile(IEnumerable<AverageBallforExaminersTable> data_table, string filePath, bool open_after_creation = false)
+        public static void CreateReportFile(AverageBallforExaminersTable data, string filePath, bool open_after_creation = false)
         {
             FileWorker.DeleteFileIfExists(filePath);
             FileInfo file = new FileInfo(filePath);
@@ -251,8 +251,7 @@ namespace BusinessLogicLayer
             using (ExcelPackage excelPackage = new ExcelPackage(file))
             {
                 ExcelWorkbook excelWorkBook = excelPackage.Workbook;
-                foreach (var data in data_table)
-                {
+                
                     ExcelWorksheet workSheet = excelPackage.Workbook.Worksheets.Add(data.SessionName);
                     SetHeaderStyle(workSheet, 1);
                     workSheet.Column(1).Width = 4;
@@ -285,11 +284,11 @@ namespace BusinessLogicLayer
                         workSheet.Row(i).Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
 
                         workSheet.Cells[i, 1].Value = i - 1;
-                        workSheet.Cells[i, 2].Value = list[j].Subject;
-                        workSheet.Cells[i, 3].Value = list[j].AverageBall;
+                        workSheet.Cells[i, 2].Value = list[j].Examiner;
+                        workSheet.Cells[i, 3].Value = list[j].AverageBall.ToString("f2");
                     }
                     workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
-                }
+                
                 excelPackage.Save();
 
                 if (open_after_creation)
@@ -312,7 +311,7 @@ namespace BusinessLogicLayer
                     ExcelWorksheet workSheet = excelPackage.Workbook.Worksheets.Add(data.SubjectName);
                     SetHeaderStyle(workSheet, 1);
                     workSheet.Column(1).Width = 4;
-                    workSheet.Column(2).Width = 30;
+                    workSheet.Column(2).Width = 35;
                     workSheet.Column(3).Width = 10;
 
                     workSheet.Cells["A1:C1"].Style.Font.Size = 10;
@@ -342,9 +341,9 @@ namespace BusinessLogicLayer
 
                         workSheet.Cells[i, 1].Value = i - 1;
                         workSheet.Cells[i, 2].Value = list[j].SessionPeriod;
-                        workSheet.Cells[i, 3].Value = list[j].AverageBall;
+                        workSheet.Cells[i, 3].Value = list[j].AverageBall.ToString("f2");
                     }
-                    workSheet.Cells["A" + i.ToString() + ":F" + i.ToString()].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                    workSheet.Cells["A" + i.ToString() + ":C" + i.ToString()].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
                 }
                 excelPackage.Save();
 
@@ -398,7 +397,7 @@ namespace BusinessLogicLayer
 
                         workSheet.Cells[i, 1].Value = i - 1;
                         workSheet.Cells[i, 2].Value = list[j].Specialty;
-                        workSheet.Cells[i, 3].Value = list[j].AverageBall;
+                        workSheet.Cells[i, 3].Value = list[j].AverageBall.ToString("f2");
                     }
                     workSheet.Cells["A" + i.ToString() + ":F" + i.ToString()].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
                 }

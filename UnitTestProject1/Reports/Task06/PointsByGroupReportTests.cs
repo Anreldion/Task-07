@@ -20,6 +20,7 @@ namespace NUnitTestProject
         /// Testing <see cref="PointsByGroupReport.GetReport"/ method
         /// </summary>
         /// <param name="path">Path to file</param>
+        [TestMethod]
         [DataRow(@"PBGReport 1.xlsx")]
         [Description("Testing GetReport method")]
         public void GetReportTest(string path)
@@ -32,6 +33,7 @@ namespace NUnitTestProject
         /// Testing <see cref="PointsByGroupReport.GetReport(System.Func{PointsByGroupUnit, object})"/ method
         /// </summary>
         /// <param name="path">Path to file</param>
+        [TestMethod]
         [DataRow(@"PBGReport 2.xlsx")]
         [Description("Testing GetReport method")]
         public void GetReportSortingTest(string path)

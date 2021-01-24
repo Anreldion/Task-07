@@ -16,7 +16,7 @@ namespace BLL.Task_07_Reports.AverageBallBySpecialties
         /// </summary>
         /// <param name="specialty"></param>
         /// <param name="averageBall"></param>
-        public AverageBallBySpecialtiesUnit(string specialty, string averageBall)
+        public AverageBallBySpecialtiesUnit(string specialty, double averageBall)
         {
             Specialty = specialty;
             AverageBall = averageBall;
@@ -29,7 +29,7 @@ namespace BLL.Task_07_Reports.AverageBallBySpecialties
         /// <summary>
         /// Average ball
         /// </summary>
-        public string AverageBall { get; set; }
+        public double AverageBall { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -42,7 +42,7 @@ namespace BLL.Task_07_Reports.AverageBallBySpecialties
         {
             int hashCode = -2145933388;
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Specialty);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(AverageBall);
+            hashCode = hashCode * -1521134295 + EqualityComparer<double>.Default.GetHashCode(AverageBall);
             return hashCode;
         }
     }

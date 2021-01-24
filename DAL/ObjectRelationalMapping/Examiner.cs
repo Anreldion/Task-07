@@ -8,7 +8,7 @@ namespace DataAccessLayer.ObjectRelationalMapping
     /// Class describes Examiners row
     /// </summary>
     [Table(Name = "Examiners")]
-    public class Examiners
+    public class Examiner
     {
         /// <summary>
         /// ID
@@ -33,29 +33,29 @@ namespace DataAccessLayer.ObjectRelationalMapping
         /// <summary>
         /// Parameterless constructor.
         /// </summary>
-        public Examiners()
+        public Examiner()
         {
         }
         /// <summary>
-        /// Class constructor <see cref="Examiners"/>
+        /// Class constructor <see cref="Examiner"/>
         /// </summary>
         /// <param name="name">Examiners name</param>
         /// <param name="surname">Examiners surname</param>
         /// <param name="middleName">Examiners middle name</param>
-        public Examiners(string name, string surname, string middleName)
+        public Examiner(string name, string surname, string middleName)
         {
             Name = name;
             Surname = surname;
             MiddleName = middleName;
         }
         /// <summary>
-        /// Class constructor <see cref="Examiners"/>
+        /// Class constructor <see cref="Examiner"/>
         /// </summary>
         /// <param name="id">Examiners ID</param>
         /// <param name="name">Examiners name</param>
         /// <param name="surname">Examiners surname</param>
         /// <param name="middleName">Examiners middle name</param>
-        public Examiners(int id, string name, string surname, string middleName)
+        public Examiner(int id, string name, string surname, string middleName)
         {
             Id = id;
             Name = name;
@@ -66,7 +66,7 @@ namespace DataAccessLayer.ObjectRelationalMapping
         /// <inheritdoc cref="object.Equals(object?)"/>
         public override bool Equals(object obj)
         {
-            return obj is Examiners examiners &&
+            return obj is Examiner examiners &&
                    Id == examiners.Id &&
                    Name == examiners.Name &&
                    Surname == examiners.Surname &&

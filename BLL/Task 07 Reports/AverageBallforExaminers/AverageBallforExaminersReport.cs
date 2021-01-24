@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.Task_07_Reports.AverageBallforExaminers
 {
@@ -20,27 +18,41 @@ namespace BLL.Task_07_Reports.AverageBallforExaminers
         {
         }
 
-        public IEnumerable<AverageBallforExaminersTable> GetReport(int sessionId)
+        public AverageBallforExaminersTable GetReport(int sessionId)
         {
-            return GetSessionsId().Select(s => new AverageBallforExaminersTable(GetRow(), GetSessionPeriodName(sessionId))).ToList();
+            return new AverageBallforExaminersTable(GetTableRows(sessionId), GetSessionPeriodName(sessionId));
         }
 
-        private IEnumerable<AverageBallforExaminersUnit> GetRow()
+        private IEnumerable<AverageBallforExaminersUnit> GetTableRows(int sessionId)
         {
-            throw new NotImplementedException();
+            var searchresult = from examiner in Examiners
+                         join schedules in Schedules on examiner.Id equals schedules.ExaminerID
+                         join results in Results on schedules.SubjectId equals results.SubjectId
+                         where schedules.SubjectId == sessionId && results.SessionId == sessionId && results.SubjectId == schedules.SubjectId
+                         select new
+                         {
+                             Mark = results.Mark,
+                             examinerId = examiner.Id
+                         };
+
+            var averengeList = from s in searchresult
+                               group s by s.examinerId into averengeByExaminer
+                               select new
+                               {
+                                   ExaminerId = averengeByExaminer.Key,
+                                   AverengeScore = averengeByExaminer.Average(a => a.Mark)
+                               };
+
+            return averengeList.Select(s => new AverageBallforExaminersUnit(GetExaminerName(s.ExaminerId), s.AverengeScore));
         }
 
-        public IEnumerable<AverageBallforExaminersTable> GetReport(int sessionId, Func<AverageBallforExaminersUnit, object> orderBy)
+        public AverageBallforExaminersTable GetReport(int sessionId, Func<AverageBallforExaminersUnit, object> orderBy)
         {
-            IEnumerable<AverageBallforExaminersTable> list = GetReport(sessionId);
-            foreach (var item in list)
-            {
-                item.table_rows = item.table_rows.OrderBy(orderBy);
-            }
-            return list;
+            AverageBallforExaminersTable table = GetReport(sessionId);
+            table.table_rows = table.table_rows.OrderBy(orderBy);
+            return table;
         }
 
-        int[] GetSessionsId() => Sessions.Select(s => s.Id).ToArray();
         /// <summary>
         /// Get session period name.
         /// </summary>
@@ -55,5 +67,7 @@ namespace BLL.Task_07_Reports.AverageBallforExaminers
 
             return $"{name.Last().Item1} ({name.Last().Item2:dd.MM.yy} - {name.Last().Item3:dd.MM.yy})";
         }
+
+        string GetExaminerName(int examinerID) => Examiners.FirstOrDefault(s => s.Id == examinerID)?.Name;
     }
 }

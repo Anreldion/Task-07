@@ -87,10 +87,10 @@ namespace DataAccessLayer.DataAccessObject
             return new DAOSchedule(connectionString);
         }
         /// <summary>
-        /// Getting DAO <see cref="Examiners"/> object
+        /// Getting DAO <see cref="Examiner"/> object
         /// </summary>
         /// <returns><see cref="DAO{Examiners}"/> object</returns>
-        public IDAO<Examiners> GetExaminer()
+        public IDAO<Examiner> GetExaminer()
         {
             return new DAOExaminer(connectionString);
         }

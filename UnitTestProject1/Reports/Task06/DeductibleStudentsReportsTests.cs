@@ -22,6 +22,7 @@ namespace NUnitTestProject
         /// <param name="sessionId">Session ID</param>
         /// <param name="passing_score">Passing score</param>
         /// <param name="path">Path to file</param>
+        [TestMethod]
         [DataRow(1, 6, @"DSReport 1.xlsx")]
         [DataRow(2, 6, @"DSReport 2.xlsx")]
         [Description("Testing GetReport method")]
@@ -37,6 +38,7 @@ namespace NUnitTestProject
         /// <param name="sessionId">Session ID</param>
         /// <param name="passing_score">Passing score</param>
         /// <param name="path">Path to file</param>
+        [TestMethod]
         [DataRow(1, 6, @"DSReport 3.xlsx")]
         [DataRow(2, 6, @"DSReport 4.xlsx")]
         [Description("Testing GetReport method")]
@@ -46,6 +48,7 @@ namespace NUnitTestProject
             Assert.IsTrue(File.Exists(path));
         }
 
+        [TestMethod]
         [DataRow(1, 6, @"DSReport 5.xlsx")]
         [DataRow(2, 6, @"DSReport 6.xlsx")]
         [Description("Testing GetReport method")]

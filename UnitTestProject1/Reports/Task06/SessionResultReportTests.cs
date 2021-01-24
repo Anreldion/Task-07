@@ -21,6 +21,7 @@ namespace NUnitTestProject
         /// </summary>
         /// <param name="sessionId">Session ID</param>
         /// <param name="path">Path to file</param>
+        [TestMethod]
         [DataRow(1, "SRReport 1.xlsx")]
         [DataRow(2, "SRReport 2.xlsx")]
         [Description("Testing GetReport method")]
@@ -35,6 +36,7 @@ namespace NUnitTestProject
         /// </summary>
         /// <param name="sessionId">Session ID</param>
         /// <param name="path">Path to file</param>
+        [TestMethod]
         [DataRow(1, @"SRReport 3.xlsx")]
         [DataRow(2, @"SRReport 4.xlsx")]
         [Description("Testing GetReport method")]

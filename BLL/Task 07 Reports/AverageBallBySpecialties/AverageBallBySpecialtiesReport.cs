@@ -19,12 +19,31 @@ namespace BLL.Task_07_Reports.AverageBallBySpecialties
 
         public IEnumerable<AverageBallBySpecialtiesTable> GetReport(int sessionId)
         {
-            return GetSessionsId().Select(s => new AverageBallBySpecialtiesTable(GetRow(), GetSessionPeriodName(sessionId))).ToList();
+            return GetSpecialtiesId().Select(specialty => new AverageBallBySpecialtiesTable(GetRow(sessionId), GetSessionPeriodName(sessionId))).ToList();
         }
 
-        private IEnumerable<AverageBallBySpecialtiesUnit> GetRow()
+        private IEnumerable<AverageBallBySpecialtiesUnit> GetRow(int sessionId)
         {
-            throw new NotImplementedException();
+            var data = from specialties in Specialties
+                       join groups in Groups on specialties.Id equals groups.SpecialtiesID
+                       join students in Students on groups.Id equals students.GroupId
+                       join results in Results on students.Id equals results.StudentId
+                       where results.SessionId == sessionId
+                       select new
+                       {
+                           Mark = results.Mark,
+                           specialty = groups.SpecialtiesID
+                       };
+
+            var averengeList = from s in data
+                               group s by s.specialty into averengeBySpecialty
+                               select new 
+                               {
+                                   specialtyId = averengeBySpecialty.Key,
+                                   AverengeScore = averengeBySpecialty.Average(a => a.Mark)
+                               };
+
+            return averengeList.Select(s => new AverageBallBySpecialtiesUnit(GetSpecialtyName(s.specialtyId), s.AverengeScore));
         }
 
         public IEnumerable<AverageBallBySpecialtiesTable> GetReport(int sessionId, Func<AverageBallBySpecialtiesUnit, object> orderBy)
@@ -36,11 +55,7 @@ namespace BLL.Task_07_Reports.AverageBallBySpecialties
             }
             return list;
         }
-        //SessionName
 
-        //Specialty 
-        //AverageBall
-        int[] GetSessionsId() => Sessions.Select(s => s.Id).ToArray();
         /// <summary>
         /// Get session period name.
         /// </summary>
@@ -55,5 +70,13 @@ namespace BLL.Task_07_Reports.AverageBallBySpecialties
 
             return $"{name.Last().Item1} ({name.Last().Item2:dd.MM.yy} - {name.Last().Item3:dd.MM.yy})";
         }
+
+        int[] GetSpecialtiesId() => Specialties.Select(s => s.Id).ToArray();
+        /// <summary>
+        /// Get session period name.
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <returns>Session period name</returns>
+        string GetSpecialtyName(int specialtyId) => Specialties.FirstOrDefault(s => s.Id == specialtyId)?.Name;
     }
 }

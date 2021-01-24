@@ -8,9 +8,9 @@ namespace DataAccessLayer.DataAccessObject
 {
 
     /// <summary>
-    /// DAO <see cref="Examiners"/> functionality
+    /// DAO <see cref="Examiner"/> functionality
     /// </summary>
-    public class DAOExaminer : IDAO<Examiners>
+    public class DAOExaminer : IDAO<Examiner>
     {
         string connectionString;
         /// <summary>
@@ -22,13 +22,13 @@ namespace DataAccessLayer.DataAccessObject
             this.connectionString = connectionString;
         }
 
-        public async Task<Examiners> IsExistAsync(Examiners data)
+        public async Task<Examiner> IsExistAsync(Examiner data)
         {
             try
             {
                 using (DataContext db = new DataContext(connectionString))
                 {
-                    return await Task.Run(() => db.GetTable<Examiners>().FirstOrDefault(g => 
+                    return await Task.Run(() => db.GetTable<Examiner>().FirstOrDefault(g => 
                     g.Name == data.Name && 
                     g.Surname == data.Surname && 
                     g.MiddleName == data.MiddleName)).ConfigureAwait(false);
@@ -39,13 +39,13 @@ namespace DataAccessLayer.DataAccessObject
                 return null;
             }
         }
-        public async Task<bool> InsertAsync(Examiners data)
+        public async Task<bool> InsertAsync(Examiner data)
         {
             try
             {
                 using (DataContext db = new DataContext(connectionString))
                 {
-                    await Task.Run(() => { db.GetTable<Examiners>().InsertOnSubmit(data); db.SubmitChanges(); }).ConfigureAwait(false);
+                    await Task.Run(() => { db.GetTable<Examiner>().InsertOnSubmit(data); db.SubmitChanges(); }).ConfigureAwait(false);
                     return true;
                 }
             }
@@ -55,13 +55,13 @@ namespace DataAccessLayer.DataAccessObject
             }
         }
 
-        public async Task<Examiners> ReadAsync(int id)
+        public async Task<Examiner> ReadAsync(int id)
         {
             try
             {
                 using (DataContext db = new DataContext(connectionString))
                 {
-                    return await Task.Run(() => db.GetTable<Examiners>().FirstOrDefault(g => g.Id == id)).ConfigureAwait(false);
+                    return await Task.Run(() => db.GetTable<Examiner>().FirstOrDefault(g => g.Id == id)).ConfigureAwait(false);
                 }
             }
             catch
@@ -70,13 +70,13 @@ namespace DataAccessLayer.DataAccessObject
             }
         }
 
-        public async Task<IEnumerable<Examiners>> ReadAllAsync()
+        public async Task<IEnumerable<Examiner>> ReadAllAsync()
         {
             try
             {
                 using (DataContext db = new DataContext(connectionString))
                 {
-                    return await Task.Run(() => db.GetTable<Examiners>().ToList()).ConfigureAwait(false);
+                    return await Task.Run(() => db.GetTable<Examiner>().ToList()).ConfigureAwait(false);
                 }
             }
             catch
@@ -85,7 +85,7 @@ namespace DataAccessLayer.DataAccessObject
             }
         }
 
-        public async Task<bool> UpdateAsync(Examiners data)
+        public async Task<bool> UpdateAsync(Examiner data)
         {
             try
             {
@@ -93,7 +93,7 @@ namespace DataAccessLayer.DataAccessObject
                 {
                     await Task.Run(() =>
                     {
-                        Examiners Examiners = db.GetTable<Examiners>().FirstOrDefault(g => g.Id == data.Id);
+                        Examiner Examiners = db.GetTable<Examiner>().FirstOrDefault(g => g.Id == data.Id);
                         Examiners.Name = data.Name;
                         Examiners.Surname = data.Surname;
                         Examiners.MiddleName = data.MiddleName;
@@ -113,7 +113,7 @@ namespace DataAccessLayer.DataAccessObject
             {
                 using (DataContext db = new DataContext(connectionString))
                 {
-                    await Task.Run(() => { db.GetTable<Examiners>().DeleteOnSubmit(db.GetTable<Examiners>().FirstOrDefault(g => g.Id == id)); db.SubmitChanges(); }).ConfigureAwait(false);
+                    await Task.Run(() => { db.GetTable<Examiner>().DeleteOnSubmit(db.GetTable<Examiner>().FirstOrDefault(g => g.Id == id)); db.SubmitChanges(); }).ConfigureAwait(false);
                     return true;
                 }
             }

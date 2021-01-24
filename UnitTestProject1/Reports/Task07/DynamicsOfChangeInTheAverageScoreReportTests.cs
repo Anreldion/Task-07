@@ -28,8 +28,8 @@ namespace NUnitTestProject
         /// </summary>
         /// <param name="sessionId">Session ID</param>
         /// <param name="path">Path to file</param>
+        [TestMethod]
         [DataRow("ABFEReport 1.xlsx")]
-        [DataRow("ABFEReport 2.xlsx")]
         [Description("Testing GetReport method")]
         public void GetReportTest(string path)
         {
@@ -42,8 +42,8 @@ namespace NUnitTestProject
         /// </summary>
         /// <param name="sessionId">Session ID</param>
         /// <param name="path">Path to file</param>
-        [DataRow(@"ABFEReport 3.xlsx")]
-        [DataRow(@"ABFEReport 4.xlsx")]
+        [TestMethod]
+        [DataRow(@"ABFEReport 2.xlsx")]
         [Description("Testing GetReport method")]
         public void GetReportSortingTest(string path)
         {

@@ -22,12 +22,10 @@ namespace BLL.Task_07_Reports.DynamicsOfChangeInTheAverageScore
 
         private IEnumerable<DynamicsOfChangeInTheAverageScoreUnit> GetRow(int subjectId)
         {
-            IEnumerable<(int, int)> marksAndSessionId = from schedules in Schedules
-            join results in Results on schedules.SessionId equals results.SessionId
-            where schedules.SubjectId == subjectId
-            select (results.Mark, schedules.SessionId);
+            IEnumerable<(int, int)> marksAndSessionId = from results in Results
+            where results.SubjectId == subjectId
+            select (results.Mark, results.SessionId);
 
-            //Average with Group By
             var averengeBySession =
                 from mas in marksAndSessionId
                 group mas by mas.Item2 into averengeByGroup

@@ -63,6 +63,14 @@ namespace BusinessLogicLayer
         /// Data from database table: TestForms
         /// </summary>
         public IEnumerable<TestForm> TestForms { get; set; }
+        /// <summary>
+        /// Data from database table: Specialties
+        /// </summary>
+        public IEnumerable<Specialty> Specialties { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public IEnumerable<Examiner> Examiners { get; set; }
 
         /// <summary>
         /// Get all data from database.

@@ -10,6 +10,6 @@
         /// <summary>
         /// Open file after creation.
         /// </summary>
-        public bool OpenFileAfterCreation = false;
+        public bool OpenFileAfterCreation = true;
     }
 }

@@ -23,6 +23,7 @@ namespace NUnitTestProject
         /// </summary>
         /// <param name="sessionId">Session ID</param>
         /// <param name="path">Path to file</param>
+        [TestMethod]
         [DataRow(1, "ABFEReport 1.xlsx")]
         [DataRow(2, "ABFEReport 2.xlsx")]
         [Description("Testing GetReport method")]
@@ -37,12 +38,13 @@ namespace NUnitTestProject
         /// </summary>
         /// <param name="sessionId">Session ID</param>
         /// <param name="path">Path to file</param>
+        [TestMethod]
         [DataRow(1, @"ABFEReport 3.xlsx")]
         [DataRow(2, @"ABFEReport 4.xlsx")]
         [Description("Testing GetReport method")]
         public void GetReportSortingTest(int sessionId, string path)
         {
-            Excel.CreateReportFile(Report.GetReport(sessionId, s => s.Subject), path, OpenFileAfterCreation);
+            Excel.CreateReportFile(Report.GetReport(sessionId, s => s.Examiner), path, OpenFileAfterCreation);
             Assert.IsTrue(File.Exists(path));
         }
     }

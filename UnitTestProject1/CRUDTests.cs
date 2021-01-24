@@ -32,7 +32,7 @@ namespace UnitTestProject1
         IEnumerable<Subject> subject;
         IEnumerable<Group> groups;
         IEnumerable<Specialty> specialties;
-        IEnumerable<Examiners> examiners;
+        IEnumerable<Examiner> examiners;
         IEnumerable<EducationForm> education_forms;
         IEnumerable<TestForm> test_forms;
         IEnumerable<Student> students;
@@ -78,9 +78,9 @@ namespace UnitTestProject1
             subject = Factory.GetSubject().ReadAllAsync().Result;
 
             //Add examiner
-            if (Factory.GetExaminer().IsExistAsync(new Examiners("Ivan", "Ivanov", "Ivanovich")).Result == null)
+            if (Factory.GetExaminer().IsExistAsync(new Examiner("Ivan", "Ivanov", "Ivanovich")).Result == null)
             {
-                Assert.IsTrue(Factory.GetExaminer().InsertAsync(new Examiners("Ivan", "Ivanov", "Ivanovich")).Result);
+                Assert.IsTrue(Factory.GetExaminer().InsertAsync(new Examiner("Ivan", "Ivanov", "Ivanovich")).Result);
             }
             examiners = Factory.GetExaminer().ReadAllAsync().Result;
 
