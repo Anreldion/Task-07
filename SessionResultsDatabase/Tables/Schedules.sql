@@ -11,7 +11,7 @@
     CONSTRAINT [FK.Schedules.SubjectId] FOREIGN KEY ([SubjectId]) REFERENCES [dbo].[Subjects]([Id]),
     CONSTRAINT [FK.Schedules.GroupId] FOREIGN KEY ([GroupId]) REFERENCES [dbo].[Groups]([Id]), 
     CONSTRAINT [FK.Schedules.TestFormId] FOREIGN KEY ([TestFormId]) REFERENCES [dbo].[TestForms]([Id]), 
-    CONSTRAINT [FK.Schedules.SessionId] FOREIGN KEY ([SessionId]) REFERENCES [dbo].[TestForms]([Id]), 
+    CONSTRAINT [FK.Schedules.SessionId] FOREIGN KEY ([SessionId]) REFERENCES [dbo].[Sessions]([Id]), 
     CONSTRAINT [PK_Schedules] PRIMARY KEY ([Id]), 
     CONSTRAINT [FK.Schedules.ExaminerID] FOREIGN KEY ([ExaminerID]) REFERENCES [Examiners]([Id]), 
 

@@ -16,7 +16,7 @@ namespace BusinessLogicLayer
         protected Report(string connectionString)
         {
             Factory = DAOFactory.GetInstance(connectionString);
-            GetAllData();
+            GetAllTables();
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace BusinessLogicLayer
         /// <summary>
         /// Get all data from database.
         /// </summary>
-        void GetAllData()
+        void GetAllTables()
         {
             EducationForms = Factory.GetEducationForm().ReadAllAsync().Result;
             Genders = Factory.GetGender().ReadAllAsync().Result;
@@ -87,6 +87,8 @@ namespace BusinessLogicLayer
             TestForms = Factory.GetTestForm().ReadAllAsync().Result;
             Students = Factory.GetStudent().ReadAllAsync().Result;
             Subjects = Factory.GetSubject().ReadAllAsync().Result;
+            Examiners = Factory.GetExaminer().ReadAllAsync().Result;
+            Specialties = Factory.GetSpecialty().ReadAllAsync().Result;
         }
     }
 }
