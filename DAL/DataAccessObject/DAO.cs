@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Linq;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace DataAccessLayer.DataAccessObject
 {
-    class DAO<T> : IDAO<T> where T : class
+    /// <summary>
+    /// Универсальный объект доступа к данным (DAO)
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public abstract class DAO<T> : IDAO<T> where T : class
     {
         DataContext db;
 
@@ -15,30 +21,17 @@ namespace DataAccessLayer.DataAccessObject
             db.DeferredLoadingEnabled = false;
         }
 
-        public async Task<bool> DeleteAsync(T entity)
+        public abstract Task<bool> IsExistAsync(T data);
+        public abstract Task<bool> UpdateAsync(T entity);
+        public async Task<bool> InsertAsync(T data)
         {
             try
             {
-                await Task.Run(() => { db.GetTable<T>().DeleteOnSubmit(entity); db.SubmitChanges(); }).ConfigureAwait(false);
-                return true;
+                await Task.Run(() =>
+                {
+                    db.GetTable<T>().InsertOnSubmit(data); db.SubmitChanges();
+                }).ConfigureAwait(false);
 
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public Task<bool> DeleteAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> InsertAsync(T entity)
-        {
-            try
-            {
-                await Task.Run(() => { db.GetTable<T>().InsertOnSubmit(entity); db.SubmitChanges(); }).ConfigureAwait(false);
                 return true;
             }
             catch
@@ -46,30 +39,25 @@ namespace DataAccessLayer.DataAccessObject
                 return false;
             }
         }
-
-        public async Task<bool> IsExistAsync(T data)
+        public async Task<T> ReadAsync(int id)
         {
+            var itemParameter = Expression.Parameter(typeof(T), "item");
+            var whereExpression = Expression.Lambda<Func<T, bool>>(Expression.Equal(Expression.Property(itemParameter, "Id"), Expression.Constant(id)), new[] { itemParameter });
+
             try
             {
-                return true;
+                return db.GetTable<T>().FirstOrDefault(whereExpression);
             }
             catch
             {
-                return false;
+                return null;
             }
         }
-
         public async Task<IEnumerable<T>> ReadAllAsync()
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<T> ReadAsync(T entity)
-        {
             try
             {
-                //return await Task.Run(() => db.GetTable<T>().  FirstOrDefault(g => g.Id == id)).ConfigureAwait(false);
-                return null;
+                return await Task.Run(() => db.GetTable<T>().ToList()).ConfigureAwait(false);
             }
             catch
             {
@@ -77,17 +65,20 @@ namespace DataAccessLayer.DataAccessObject
             }
         }
 
-        public Task<T> ReadAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
-        }
+            var itemParameter = Expression.Parameter(typeof(T), "item");
+            var whereExpression = Expression.Lambda<Func<T, bool>>(Expression.Equal(Expression.Property(itemParameter, "Id"), Expression.Constant(id)), new[] { itemParameter });
 
-        public async Task<bool> UpdateAsync(T entity)
-        {
             try
             {
-                await Task.Run(() => { db.GetTable<T>().Attach(entity,false); db.SubmitChanges(); }).ConfigureAwait(false);
+                await Task.Run(() =>
+                {
+                    db.GetTable<T>().DeleteOnSubmit(db.GetTable<T>().FirstOrDefault(whereExpression));
+                    db.SubmitChanges();
+                }).ConfigureAwait(false);
                 return true;
+
             }
             catch
             {

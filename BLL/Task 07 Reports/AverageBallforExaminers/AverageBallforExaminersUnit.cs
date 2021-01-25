@@ -3,14 +3,14 @@
 namespace BLL.Task_07_Reports.AverageBallforExaminers
 {
     /// <summary>
-    /// 
+    /// Класс содержит информацию о среднем балле по экзаменатору
     /// </summary>
     public class AverageBallforExaminersUnit
     {
         /// <summary>
-        /// 
+        /// Class constructor <see cref="AverageBallforExaminersUnit"/>
         /// </summary>
-        /// <param name="subject">Subject name</param>
+        /// <param name="examiner">Examiner name</param>
         /// <param name="averageBall">Average ball</param>
         public AverageBallforExaminersUnit(string examiner, double averageBall)
         {

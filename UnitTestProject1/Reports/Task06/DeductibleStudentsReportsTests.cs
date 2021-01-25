@@ -6,18 +6,18 @@ using System.IO;
 namespace NUnitTestProject
 {
     /// <summary>
-    /// Testing method of <see cref="DeductibleStudentsReport"/> class
+    /// Testing method of <see cref="ToBeExpelledStudentReport"/> class
     /// </summary>
     [TestClass]
     public class DeductibleStudentsReportsTests : ConnectionInfo
     {
         /// <summary>
-        /// Create <see cref="DeductibleStudentsReport"/> object
+        /// Create <see cref="ToBeExpelledStudentReport"/> object
         /// </summary>
-        private static DeductibleStudentsReport Report { get; } = new DeductibleStudentsReport(ConnectionString);
+        private static ToBeExpelledStudentReport Report { get; } = new ToBeExpelledStudentReport(ConnectionString);
 
         /// <summary>
-        /// Testing <see cref="DeductibleStudentsReport.GetReport"/ method
+        /// Testing <see cref="ToBeExpelledStudentReport.GetReport"/ method
         /// </summary>
         /// <param name="sessionId">Session ID</param>
         /// <param name="passing_score">Passing score</param>
@@ -33,7 +33,7 @@ namespace NUnitTestProject
         }
 
         /// <summary>
-        /// Testing <see cref="DeductibleStudentsReport.GetReport(int, int, System.Func{DeductibleStudentUnit, object})"/ method
+        /// Testing <see cref="ToBeExpelledStudentReport.GetReport(int, int, System.Func{ToBeExpelledStudentUnit, object})"/ method
         /// </summary>
         /// <param name="sessionId">Session ID</param>
         /// <param name="passing_score">Passing score</param>

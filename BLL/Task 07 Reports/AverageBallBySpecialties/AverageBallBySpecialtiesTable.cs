@@ -7,26 +7,26 @@ using System.Threading.Tasks;
 namespace BLL.Task_07_Reports.AverageBallBySpecialties
 {
     /// <summary>
-    /// 
+    /// Class containing the name of the session and a list of average ball by specialties
     /// </summary>
     public class AverageBallBySpecialtiesTable
     {
         /// <summary>
-        /// 
+        /// List with <see cref="AverageBallBySpecialtiesUnit"/>
         /// </summary>
         public IEnumerable<AverageBallBySpecialtiesUnit> table_rows;
         /// <summary>
         /// Class constructor <see cref="AverageBallBySpecialtiesTable"/>
         /// </summary>
-        /// <param name="table_rows"></param>
-        /// <param name="sessionName"></param>
+        /// <param name="table_rows">List with <see cref="AverageBallBySpecialtiesUnit"/></param>
+        /// <param name="sessionName">Session name</param>
         public AverageBallBySpecialtiesTable(IEnumerable<AverageBallBySpecialtiesUnit> table_rows, string sessionName)
         {
             this.table_rows = table_rows;
             SessionName = sessionName;
         }
         /// <summary>
-        /// 
+        /// Session name
         /// </summary>
         public string SessionName { get; set; }
 

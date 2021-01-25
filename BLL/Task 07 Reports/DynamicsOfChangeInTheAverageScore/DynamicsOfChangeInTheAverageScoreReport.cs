@@ -12,6 +12,10 @@ namespace BLL.Task_07_Reports.DynamicsOfChangeInTheAverageScore
     /// </summary>
     public class DynamicsOfChangeInTheAverageScoreReport : Report
     {
+        /// <summary>
+        /// Class constructor <see cref="DynamicsOfChangeInTheAverageScoreReport"/>
+        /// </summary>
+        /// <param name="connectionString">Database connection string</param>
         public DynamicsOfChangeInTheAverageScoreReport(string connectionString) : base(connectionString)
         {
         }
@@ -19,7 +23,11 @@ namespace BLL.Task_07_Reports.DynamicsOfChangeInTheAverageScore
         {
             return GetSubjectsId().Select(subjectId => new DynamicsOfChangeInTheAverageScoreTable(GetRow(subjectId), GetSubjectName(subjectId))).ToList();
         }
-
+        /// <summary>
+        /// Get list with <see cref="DynamicsOfChangeInTheAverageScoreUnit"/>
+        /// </summary>
+        /// <param name="subjectId">Subjects ID</param>
+        /// <returns>list with <see cref="DynamicsOfChangeInTheAverageScoreUnit"/></returns>
         private IEnumerable<DynamicsOfChangeInTheAverageScoreUnit> GetRow(int subjectId)
         {
             IEnumerable<(int, int)> marksAndSessionId = from results in Results
@@ -37,7 +45,11 @@ namespace BLL.Task_07_Reports.DynamicsOfChangeInTheAverageScore
 
             return averengeBySession.Select(s => new DynamicsOfChangeInTheAverageScoreUnit(GetSessionPeriodName(s.SessionId), s.AverengeScore));
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="orderBy">Sorting elements of the collection</param>
+        /// <returns></returns>
         public IEnumerable<DynamicsOfChangeInTheAverageScoreTable> GetReport(Func<DynamicsOfChangeInTheAverageScoreUnit, object> orderBy)
         {
             IEnumerable<DynamicsOfChangeInTheAverageScoreTable> list = GetReport();
@@ -47,8 +59,16 @@ namespace BLL.Task_07_Reports.DynamicsOfChangeInTheAverageScore
             }
             return list;
         }
-
+        /// <summary>
+        /// Get subjects IDs
+        /// </summary>
+        /// <returns>Subjects IDs array</returns>
         int[] GetSubjectsId() => Subjects.Select(s => s.Id).ToArray();
+        /// <summary>
+        /// Get subject name
+        /// </summary>
+        /// <param name="subjectId">Subject ID</param>
+        /// <returns>Subject name</returns>
         string GetSubjectName(int subjectId) => Subjects.FirstOrDefault(s => s.Id == subjectId)?.Name;
         /// <summary>
         /// Get session period name.

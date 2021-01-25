@@ -5,7 +5,7 @@ using System.Text;
 namespace BusinessLogicLayer.PointsByGroup
 {
     /// <summary>
-    /// The class contains information about the average / minimum / maximum score for the group
+    /// The class containing information about the average / minimum / maximum score for the group.
     /// </summary>
     public class PointsByGroupUnit
     {

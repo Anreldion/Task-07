@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace BLL.Task_07_Reports.AverageBallBySpecialties
 {
     /// <summary>
-    /// Дополнить отчёты информацией в рамках одной сессии о среднем бале по каждой специальности
+    /// Класс для получения информации в рамках одной сессии о среднем бале по каждой специальности
     /// </summary>
     public class AverageBallBySpecialtiesReport : Report
     {

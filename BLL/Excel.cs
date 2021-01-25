@@ -12,15 +12,15 @@ using System.Linq;
 namespace BusinessLogicLayer
 {
     /// <summary>
-    /// Class for generating .xlxs reports.
+    /// Class for creation of .xlxs reports.
     /// </summary>
     public class Excel
     {
         /// <summary>
-        /// Set header style
+        /// Set header style.
         /// </summary>
-        /// <param name="workSheet"></param>
-        /// <param name="row"></param>
+        /// <param name="workSheet">Excel worksheet</param>
+        /// <param name="row">Row</param>
         private static void SetHeaderStyle(ExcelWorksheet workSheet, int row)
         {
             workSheet.Row(row).Style.WrapText = true;
@@ -28,8 +28,14 @@ namespace BusinessLogicLayer
             workSheet.Row(row).Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
             workSheet.Row(row).Height = 30;
         }
-
-        private static void SetHeaderNames(ExcelWorksheet workSheet, int FromCol, int FromRow, params string[] names)
+        /// <summary>
+        /// Set column names.
+        /// </summary>
+        /// <param name="workSheet">Excel worksheet</param>
+        /// <param name="FromCol">From column</param>
+        /// <param name="FromRow">From row</param>
+        /// <param name="names">names</param>
+        private static void SetColumnNames(ExcelWorksheet workSheet, int FromCol, int FromRow, params string[] names)
         {
             if (FromCol < 1)
             {
@@ -44,8 +50,13 @@ namespace BusinessLogicLayer
                 workSheet.Cells[FromCol, FromRow++].Value = name;
             }
         }
-
-        private static void SetHeaderWidth(ExcelWorksheet workSheet, int FromCol, params double[] width)
+        /// <summary>
+        /// Set column width.
+        /// </summary>
+        /// <param name="workSheet">Excel worksheet</param>
+        /// <param name="FromCol">From column</param>
+        /// <param name="width">Width</param>
+        private static void SetColumnWidth(ExcelWorksheet workSheet, int FromCol, params double[] width)
         {
             if (FromCol < 1)
             {
@@ -56,7 +67,14 @@ namespace BusinessLogicLayer
                 workSheet.Column(FromCol++).Width = item;
             }
         }
-
+        /// <summary>
+        /// Set sheet style.
+        /// </summary>
+        /// <param name="workSheet">Excel worksheet</param>
+        /// <param name="FromCol">From column</param>
+        /// <param name="FromRow">From row</param>
+        /// <param name="ToCol">To column</param>
+        /// <param name="ToRow">To row</param>
         private static void SetSheetStyle(ExcelWorksheet workSheet, int FromCol, int FromRow, int ToCol, int ToRow)
         {
             workSheet.Cells[FromRow, FromCol, ToRow, ToCol].Style.Font.Size = 10;
@@ -70,7 +88,14 @@ namespace BusinessLogicLayer
                 workSheet.Cells[FromRow, FromCol, ToRow, toCol].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
             }
         }
-
+        /// <summary>
+        /// Set row style
+        /// </summary>
+        /// <param name="workSheet">Excel worksheet</param>
+        /// <param name="FromCol">From column</param>
+        /// <param name="FromRow">From row</param>
+        /// <param name="ToCol">To column</param>
+        /// <param name="ToRow">To row</param>
         private static void SetRowStyle(ExcelWorksheet workSheet, int FromCol, int FromRow, int ToCol, int ToRow)
         {
             workSheet.Cells[FromRow, FromCol, ToRow, ToCol].Style.Font.Size = 10;
@@ -85,11 +110,12 @@ namespace BusinessLogicLayer
         }
 
         /// <summary>
-        /// Form a list of students to be expelled, grouped by group.
+        ///  Form a list of students to be expelled, formed by group.
         /// </summary>
-        /// <param name="data_table">List contains <see cref="DeductibleStudentsTable"/></param>
+        /// <param name="data_table">List contains <see cref="ToBeExpelledStudentTable"/></param>
         /// <param name="filePath">The path to the file</param>
-        public static void CreateReportFile(IEnumerable<DeductibleStudentsTable> data_table, string filePath, bool open_after_creation = false)
+        /// <param name="open_after_creation">Open file after creation</param>
+        public static void CreateReportFile(IEnumerable<ToBeExpelledStudentTable> data_table, string filePath, bool open_after_creation = false)
         {
             FileWorker.DeleteFileIfExists(filePath);
             FileInfo file = new FileInfo(filePath);
@@ -103,9 +129,9 @@ namespace BusinessLogicLayer
                 {
                     ExcelWorksheet workSheet = excelPackage.Workbook.Worksheets.Add(data.GroupName);
                     SetHeaderStyle(workSheet, 1);
-                    SetHeaderWidth(workSheet, 1, 4, 14, 16, 16, 10);
+                    SetColumnWidth(workSheet, 1, 4, 14, 16, 16, 10);
                     SetSheetStyle(workSheet, 1, 1, 5, 1);
-                    SetHeaderNames(workSheet, 1, 1, "№", "Surname", "Name", "Middlename", "Education forms");
+                    SetColumnNames(workSheet, 1, 1, "№", "Surname", "Name", "Middlename", "Education forms");
                     var list = data.deductibleStudents.ToList();
                     int i = 2, num = 1;
                     foreach(var item in list)
@@ -132,10 +158,11 @@ namespace BusinessLogicLayer
 
 
         /// <summary>
-        /// For each session, display the xlsx pivot table with the average / minimum / maximum score for each group.
+        /// For each session, display the xlsx joint table with the average / minimum / maximum score for each group.
         /// </summary>
         /// <param name="data_table">List contains <see cref="PointsByGroupTable"/></param>
         /// <param name="filePath">The path to the file</param>
+        /// <param name="open_after_creation">Open file after creation</param>
         public static void CreateReportFile(IEnumerable<PointsByGroupTable> data_table, string filePath, bool open_after_creation = false)
         {
             FileWorker.DeleteFileIfExists(filePath);
@@ -148,9 +175,9 @@ namespace BusinessLogicLayer
                 {
                     ExcelWorksheet workSheet = excelPackage.Workbook.Worksheets.Add(data.SessionPeriod);
                     SetHeaderStyle(workSheet, 1);
-                    SetHeaderWidth(workSheet, 1, 4, 15, 10, 10, 10);
+                    SetColumnWidth(workSheet, 1, 4, 15, 10, 10, 10);
                     SetSheetStyle(workSheet, 1, 1, 5, 1);
-                    SetHeaderNames(workSheet, 1, 1, "№", "Group Name", "Minimum Score", "Average Score", "Maximum Score");
+                    SetColumnNames(workSheet, 1, 1, "№", "Group Name", "Minimum Score", "Average Score", "Maximum Score");
 
                     var list = data.pointsByGroups.ToList();
                     int i = 2, num = 1;
@@ -177,10 +204,11 @@ namespace BusinessLogicLayer
         }
 
         /// <summary>
-        /// Saving in xlsx format file of session results for each group in the form of a table.
+        /// Saving in xlsx format session results for each group in table form.
         /// </summary>
         /// <param name="data_table">List contains <see cref="SessionResultTable"/></param>
         /// <param name="filePath">The path to the file</param>
+        /// <param name="open_after_creation">Open file after creation</param>
         public static void CreateReportFile(IEnumerable<SessionResultTable> data_table, string filePath, bool open_after_creation = false)
         {
             FileWorker.DeleteFileIfExists(filePath);
@@ -193,9 +221,9 @@ namespace BusinessLogicLayer
                 {
                     ExcelWorksheet workSheet = excelPackage.Workbook.Worksheets.Add(data.GroupName);
                     SetHeaderStyle(workSheet, 1);
-                    SetHeaderWidth(workSheet, 1, 4, 30, 25, 10, 12, 10);
+                    SetColumnWidth(workSheet, 1, 4, 30, 25, 10, 12, 10);
                     SetSheetStyle(workSheet, 1, 1, 6, 1);
-                    SetHeaderNames(workSheet, 1, 1, "№", "Student", "Subject", "Mark", "Date", "Test form");
+                    SetColumnNames(workSheet, 1, 1, "№", "Student", "Subject", "Mark", "Date", "Test form");
 
                     var list = data.sessionResults.ToList();
                     int i = 2, num = 1;
@@ -222,11 +250,11 @@ namespace BusinessLogicLayer
         }
 
         /// <summary>
-        /// 
+        /// Класс позволяет получить информацию в рамках одной сессии о среднем бале по каждому экзаменатору.
         /// </summary>
-        /// <param name="data"></param>
-        /// <param name="filePath"></param>
-        /// <param name="open_after_creation"></param>
+        /// <param name="data"><see cref="AverageBallforExaminersTable"/> object</param>
+        /// <param name="filePath">The path to the file</param>
+        /// <param name="open_after_creation">Open file after creation</param>
         public static void CreateReportFile(AverageBallforExaminersTable data, string filePath, bool open_after_creation = false)
         {
             FileWorker.DeleteFileIfExists(filePath);
@@ -238,9 +266,9 @@ namespace BusinessLogicLayer
 
                 ExcelWorksheet workSheet = excelPackage.Workbook.Worksheets.Add(data.SessionName);
                 SetHeaderStyle(workSheet, 1);
-                SetHeaderWidth(workSheet, 1, 4, 30, 10);
+                SetColumnWidth(workSheet, 1, 4, 30, 10);
                 SetSheetStyle(workSheet, 1, 1, 3, 1);
-                SetHeaderNames(workSheet, 1, 1, "№", "Examiner", "Average ball");
+                SetColumnNames(workSheet, 1, 1, "№", "Examiner", "Average ball");
 
                 var list = data.table_rows.ToList();
                 int i = 2, num = 1;
@@ -263,11 +291,11 @@ namespace BusinessLogicLayer
         }
 
         /// <summary>
-        /// 
+        /// В рамках всех сессий вывести в виде таблицы динамику изменения среднего бала по каждому предмету по годам
         /// </summary>
-        /// <param name="data_table"></param>
-        /// <param name="filePath"></param>
-        /// <param name="open_after_creation"></param>
+        /// <param name="data_table">List contains <see cref="DynamicsOfChangeInTheAverageScoreTable"/></param>
+        /// <param name="filePath">The path to the file</param>
+        /// <param name="open_after_creation">Open file after creation</param>
         public static void CreateReportFile(IEnumerable<DynamicsOfChangeInTheAverageScoreTable> data_table, string filePath, bool open_after_creation = false)
         {
             FileWorker.DeleteFileIfExists(filePath);
@@ -280,9 +308,9 @@ namespace BusinessLogicLayer
                 {
                     ExcelWorksheet workSheet = excelPackage.Workbook.Worksheets.Add(data.SubjectName);
                     SetHeaderStyle(workSheet, 1);
-                    SetHeaderWidth(workSheet, 1, 4, 35, 10);
+                    SetColumnWidth(workSheet, 1, 4, 35, 10);
                     SetSheetStyle(workSheet, 1, 1, 3, 1);
-                    SetHeaderNames(workSheet,1,1, "№", "Session Period", "Average ball");
+                    SetColumnNames(workSheet,1,1, "№", "Session Period", "Average ball");
 
                     var list = data.table_rows.ToList();
                     int i = 2, num = 1;
@@ -306,11 +334,11 @@ namespace BusinessLogicLayer
         }
 
         /// <summary>
-        /// 
+        /// Получить информацию в рамках одной сессии о среднем бале по каждой специальности
         /// </summary>
-        /// <param name="data"></param>
-        /// <param name="filePath"></param>
-        /// <param name="open_after_creation"></param>
+        /// <param name="data"><see cref="AverageBallBySpecialtiesTable"/> object</param>
+        /// <param name="filePath">The path to the file</param>
+        /// <param name="open_after_creation">Open file after creation</param>
         public static void CreateReportFile(AverageBallBySpecialtiesTable data, string filePath, bool open_after_creation = false)
         {
             FileWorker.DeleteFileIfExists(filePath);
@@ -321,9 +349,9 @@ namespace BusinessLogicLayer
                 ExcelWorkbook excelWorkBook = excelPackage.Workbook;
                 ExcelWorksheet workSheet = excelPackage.Workbook.Worksheets.Add(data.SessionName);
                 SetHeaderStyle(workSheet, 1);
-                SetHeaderWidth(workSheet, 1, 4, 30, 10);
+                SetColumnWidth(workSheet, 1, 4, 30, 10);
                 SetSheetStyle(workSheet, 1, 1, 3, 1);
-                SetHeaderNames(workSheet, 1, 1, "№", "Specialty", "Average ball");
+                SetColumnNames(workSheet, 1, 1, "№", "Specialty", "Average ball");
 
                 var list = data.table_rows.ToList();
                 int i = 2, num = 1;

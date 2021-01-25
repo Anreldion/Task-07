@@ -6,17 +6,20 @@ using System.Threading.Tasks;
 
 namespace BLL.Task_07_Reports.AverageBallforExaminers
 {
+    /// <summary>
+    /// Class containing the name of the session and a list of average ball for examiners
+    /// </summary>
     public class AverageBallforExaminersTable
     {
         /// <summary>
-        /// 
+        /// List with <see cref="AverageBallforExaminersUnit"/>
         /// </summary>
         public IEnumerable<AverageBallforExaminersUnit> table_rows;
         /// <summary>
         /// Class constructor <see cref="AverageBallforExaminersTable"/>
         /// </summary>
-        /// <param name="table_rows"></param>
-        /// <param name="sessionName"></param>
+        /// <param name="table_rows">List with <see cref="AverageBallforExaminersUnit"/></param>
+        /// <param name="sessionName">Session name</param>
         public AverageBallforExaminersTable(IEnumerable<AverageBallforExaminersUnit> table_rows, string sessionName)
         {
             this.table_rows = table_rows;
@@ -24,7 +27,7 @@ namespace BLL.Task_07_Reports.AverageBallforExaminers
         }
 
         /// <summary>
-        /// 
+        /// Session name.
         /// </summary>
         public string SessionName { get; set; }
 

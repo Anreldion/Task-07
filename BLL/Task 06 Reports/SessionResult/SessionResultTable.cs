@@ -20,7 +20,7 @@ namespace BusinessLogicLayer.SessionResult
             GroupName = groupName;
         }
         /// <summary>
-        /// Student execution result
+        /// Session results list.
         /// </summary>
         public IEnumerable<SessionResultUnit> sessionResults;
         /// <summary>

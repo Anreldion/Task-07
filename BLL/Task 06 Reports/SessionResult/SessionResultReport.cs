@@ -5,7 +5,7 @@ using System.Linq;
 namespace BusinessLogicLayer.SessionResult
 {
     /// <summary>
-    /// The class allows you to create up the session for each group in a table.
+    /// A class containing session results by group in a table form.
     /// </summary>
     public class SessionResultReport : Report
     {
@@ -17,7 +17,7 @@ namespace BusinessLogicLayer.SessionResult
         {
         }
         /// <summary>
-        /// Get the session summary for each group in the form of a table.
+        /// Get the session results list for each group in a table form.
         /// </summary>
         /// <param name="sessionId">Session ID</param>
         /// <returns>List with <see cref="SessionResultTable"/></returns>
@@ -26,10 +26,10 @@ namespace BusinessLogicLayer.SessionResult
             return GetGroupId(sessionId).Select(groupId => new SessionResultTable(GetRowSessionResult(sessionId, groupId), GetGroupName(groupId))).ToList();
         }
         /// <summary>
-        /// Get the session summary for each group in the form of a table.
+        /// Get the session results list for each group in a table form.
         /// </summary>
         /// <param name="sessionId">Session ID</param>
-        /// <param name="orderBy">Sorting elements of a collection</param>
+        /// <param name="orderBy">Sorting elements of the collection</param>
         /// <returns></returns>
         public IEnumerable<SessionResultTable> GetReport(int sessionId, Func<SessionResultUnit, object> orderBy)
         {
@@ -58,13 +58,13 @@ namespace BusinessLogicLayer.SessionResult
                    select new SessionResultUnit(students.Name, students.Surname, students.MiddleName, subjects.Name, results.Mark, schedules.Date, testForms.Name);
         }
         /// <summary>
-        /// Get an array with group IDs for the specified session
+        /// Get an array of group IDs for the selected session.
         /// </summary>
         /// <param name="sessionId">Session ID</param>
         /// <returns>Group IDs array</returns>
         int[] GetGroupId(int sessionId) => Schedules.Where(s => s.SessionId == sessionId).Select(s => s.GroupId).Distinct().ToArray();
         /// <summary>
-        /// Get group name by ID
+        /// Get group name by ID.
         /// </summary>
         /// <param name="groupId"></param>
         /// <returns>Group name, otherwise null</returns>

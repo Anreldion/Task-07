@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace BLL.Task_07_Reports.AverageBallBySpecialties
 {
     /// <summary>
-    /// 
+    /// Класс содержит информацию о среднем балле по специальности
     /// </summary>
     public class AverageBallBySpecialtiesUnit
     {
         /// <summary>
-        /// 
+        /// Class constructor <see cref="AverageBallBySpecialtiesTable"/>
         /// </summary>
         /// <param name="specialty"></param>
         /// <param name="averageBall"></param>

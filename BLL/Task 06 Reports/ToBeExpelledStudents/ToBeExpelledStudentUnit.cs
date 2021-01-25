@@ -6,17 +6,17 @@ namespace BusinessLogicLayer.DeductibleStudent
     /// <summary>
     /// Class containing information about the student to be expelled.
     /// </summary>
-    public class DeductibleStudentUnit
+    public class ToBeExpelledStudentUnit
     {
         /// <summary>
-        /// Class constructor <see cref="DeductibleStudentUnit"/>
+        /// Class constructor <see cref="ToBeExpelledStudentUnit"/>
         /// </summary>
         /// <param name="name">Student name</param>
         /// <param name="surname">Student surname</param>
         /// <param name="middleName">Student middleName</param>
         /// <param name="educationForm">Education form</param>
         /// <param name="groupName">Group name</param>
-        public DeductibleStudentUnit(string name, string surname, string middleName, string educationForm, string groupName)
+        public ToBeExpelledStudentUnit(string name, string surname, string middleName, string educationForm, string groupName)
         {
             Name = name;
             Surname = surname;
@@ -48,7 +48,7 @@ namespace BusinessLogicLayer.DeductibleStudent
         /// <inheritdoc cref="object.Equals(object?)"/>
         public override bool Equals(object obj)
         {
-            return obj is DeductibleStudentUnit student &&
+            return obj is ToBeExpelledStudentUnit student &&
                    Name == student.Name &&
                    Surname == student.Surname &&
                    MiddleName == student.MiddleName &&

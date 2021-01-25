@@ -5,7 +5,7 @@ using System.Linq;
 namespace BusinessLogicLayer.PointsByGroup
 {
     /// <summary>
-    /// The class contains information about the average / minimum / maximum score for each group
+    /// The class contains information about the average / minimum / maximum score for each group.
     /// </summary>
     public class PointsByGroupReport : Report
     {
@@ -17,7 +17,7 @@ namespace BusinessLogicLayer.PointsByGroup
         {
         }
         /// <summary>
-        /// Get a list of tables contains information about the average / minimum / maximum score for each group.
+        /// Get a list of tables containing information about the average / minimum / maximum score for each group.
         /// </summary>
         /// <returns>List with <see cref="PointsByGroupTable"/></returns>
         public IEnumerable<PointsByGroupTable> GetReport()
@@ -32,9 +32,9 @@ namespace BusinessLogicLayer.PointsByGroup
             return AllSessionsId.Select(s => new PointsByGroupTable(SelectPointsByGroup(listPointsByGroupUnit, s), GetSessionPeriodName(s))).ToList();
         }
         /// <summary>
-        /// Get a list of tables contains information about the average / minimum / maximum score for each group.
+        /// Get a list of tables containing information about the average / minimum / maximum score for each group.
         /// </summary>
-        /// <param name="orderBy">Sorting elements of a collection</param>
+        /// <param name="orderBy">Sorting elements of the collection</param>
         /// <returns>List with <see cref="PointsByGroupTable"/></returns>
         public IEnumerable<PointsByGroupTable> GetReport(Func<PointsByGroupUnit, object> orderBy)
         {

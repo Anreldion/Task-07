@@ -6,17 +6,20 @@ using System.Threading.Tasks;
 
 namespace BLL.Task_07_Reports.DynamicsOfChangeInTheAverageScore
 {
+    /// <summary>
+    /// Класс содержит информацию о наименовании предмета и список со средним баллом по сессиям
+    /// </summary>
     public class DynamicsOfChangeInTheAverageScoreTable
     {
         /// <summary>
-        /// 
+        /// List with <see cref="DynamicsOfChangeInTheAverageScoreUnit"/>
         /// </summary>
         public IEnumerable<DynamicsOfChangeInTheAverageScoreUnit> table_rows;
         /// <summary>
         /// Class constructor <see cref="DynamicsOfChangeInTheAverageScoreUnit"/>
         /// </summary>
-        /// <param name="table_rows"></param>
-        /// <param name="subjectName"></param>
+        /// <param name="table_rows">List with <see cref="DynamicsOfChangeInTheAverageScoreUnit"/></param>
+        /// <param name="subjectName">Subject name</param>
         public DynamicsOfChangeInTheAverageScoreTable(IEnumerable<DynamicsOfChangeInTheAverageScoreUnit> table_rows, string subjectName)
         {
             this.table_rows = table_rows;
@@ -24,7 +27,7 @@ namespace BLL.Task_07_Reports.DynamicsOfChangeInTheAverageScore
         }
 
         /// <summary>
-        /// 
+        /// Subject name
         /// </summary>
         public string SubjectName { get; set; }
 

@@ -47,7 +47,7 @@ namespace BusinessLogicLayer
         }
 
         /// <summary>
-        /// Open an object at the specified path. 
+        /// Open an object at the shown path.  
         /// </summary>
         /// <param name="path"></param>
         public static void Open(string path)
