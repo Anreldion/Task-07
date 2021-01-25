@@ -51,22 +51,5 @@ namespace DataAccessLayer.ObjectRelationalMapping
             Name = name;
             SpecialtiesID = specialtiesID;
         }
-        /// <inheritdoc cref="object.Equals(object?)"/>
-        public override bool Equals(object obj)
-        {
-            return obj is Group group &&
-                   Id == group.Id &&
-                   Name == group.Name &&
-                   SpecialtiesID == group.SpecialtiesID;
-        }
-        /// <inheritdoc cref="object.GetHashCode"/>
-        public override int GetHashCode()
-        {
-            int hashCode = -1554455872;
-            hashCode = hashCode * -1521134295 + Id.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
-            hashCode = hashCode * -1521134295 + SpecialtiesID.GetHashCode();
-            return hashCode;
-        }
     }
 }

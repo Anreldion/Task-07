@@ -56,7 +56,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Task 06 Reports\DeductibleStudent\DeductibleStudentsReport.cs" />
     <Compile Include="Task 06 Reports\DeductibleStudent\DeductibleStudentsTable.cs" />
     <Compile Include="Task 06 Reports\DeductibleStudent\DeductibleStudentUnit.cs" />

@@ -61,24 +61,5 @@ namespace DataAccessLayer.ObjectRelationalMapping
             DateFrom = from;
             DateTo = to;
         }
-        /// <inheritdoc cref="object.Equals(object?)"/>
-        public override bool Equals(object obj)
-        {
-            return obj is Session session &&
-                   Id == session.Id &&
-                   SessionPeriodId == session.SessionPeriodId &&
-                   DateFrom == session.DateFrom &&
-                   DateTo == session.DateTo;
-        }
-        /// <inheritdoc cref="object.GetHashCode"/>
-        public override int GetHashCode()
-        {
-            int hashCode = -548053044;
-            hashCode = hashCode * -1521134295 + Id.GetHashCode();
-            hashCode = hashCode * -1521134295 + SessionPeriodId.GetHashCode();
-            hashCode = hashCode * -1521134295 + DateFrom.GetHashCode();
-            hashCode = hashCode * -1521134295 + DateTo.GetHashCode();
-            return hashCode;
-        }
     }
 }

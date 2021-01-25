@@ -100,32 +100,6 @@ namespace DataAccessLayer.ObjectRelationalMapping
         /// </summary>
         [Column(Name = "EducationFormId")]
         public int EducationFormId { get; set; }
-        /// <inheritdoc cref="object.Equals(object?)"/>
-        public override bool Equals(object obj)
-        {
-            return obj is Student student &&
-                   Id == student.Id &&
-                   Name == student.Name &&
-                   Surname == student.Surname &&
-                   GenderId == student.GenderId &&
-                   DateofBirth == student.DateofBirth &&
-                   GroupId == student.GroupId &&
-                   EducationFormId == student.EducationFormId;
-        }
-        /// <inheritdoc cref="object.GetHashCode"/>
-        public override int GetHashCode()
-        {
-            int hashCode = -2082744236;
-            hashCode = hashCode * -1521134295 + Id.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Surname);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(MiddleName);
-            hashCode = hashCode * -1521134295 + GenderId.GetHashCode();
-            hashCode = hashCode * -1521134295 + DateofBirth.GetHashCode();
-            hashCode = hashCode * -1521134295 + GroupId.GetHashCode();
-            hashCode = hashCode * -1521134295 + EducationFormId.GetHashCode();
-            return hashCode;
-        }
 
         /// <inheritdoc cref="object.ToString"/>
         public override string ToString()

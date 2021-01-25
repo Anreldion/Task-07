@@ -1,6 +1,7 @@
 ﻿using DataAccessLayer.DataAccessObject;
 using DataAccessLayer.ObjectRelationalMapping;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnitTestProject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace UnitTestProject1
     /// Checking write, read, update operations for each database table.
     /// </summary>
     [TestClass]
-    public class CRUDTests
+    public class CRUDTests : ConnectionInfo
     {
         /// <summary>
         /// Create <see cref="DAOFactory"/> object
@@ -29,132 +30,63 @@ namespace UnitTestProject1
         /// Data from database table: Session
         /// </summary>
         IEnumerable<Session> sessions;
+        /// <summary>
+        /// Data from database table: Subject
+        /// </summary>
         IEnumerable<Subject> subject;
+        /// <summary>
+        /// Data from database table: Group
+        /// </summary>
         IEnumerable<Group> groups;
+        /// <summary>
+        /// Data from database table: Specialty
+        /// </summary>
         IEnumerable<Specialty> specialties;
+        /// <summary>
+        /// Data from database table: Examiner
+        /// </summary>
         IEnumerable<Examiner> examiners;
+        /// <summary>
+        /// Data from database table: EducationForm
+        /// </summary>
         IEnumerable<EducationForm> education_forms;
+        /// <summary>
+        /// Data from database table: TestForm
+        /// </summary>
         IEnumerable<TestForm> test_forms;
+        /// <summary>
+        /// Data from database table: Students
+        /// </summary>
         IEnumerable<Student> students;
+        /// <summary>
+        /// Data from database table: Schedules
+        /// </summary>
         IEnumerable<Schedule> schedules;
 
         /// <summary>
-        /// Filling an empty database test parameters.
+        /// Get database tables.
         /// </summary>
         [TestInitialize]
         public void SetUp()
         {
-            Factory = DAOFactory.GetInstance(@"Data Source=UserPC\SQLEXPRESS; Initial Catalog=SessionResultsDatabase; Integrated Security=true;");
-
-            // Add data to DB if don't exist.
-
-            // Add Gender
-            if (Factory.GetGender().IsExistAsync(new Gender("Man")).Result == null)
-            {
-                Assert.IsTrue(Factory.GetGender().InsertAsync(new Gender("Man")).Result);
-            }
+            Factory = DAOFactory.GetInstance(ConnectionString);
             genders = Factory.GetGender().ReadAllAsync().Result;
-
-            // Add session period
-            if (Factory.GetSessionPeriod().IsExistAsync(new SessionPeriod("Summer")).Result == null)
-            {
-                Assert.IsTrue(Factory.GetSessionPeriod().InsertAsync(new SessionPeriod("Summer")).Result);
-            }
             periods = Factory.GetSessionPeriod().ReadAllAsync().Result;
-            // Add session
-            DateTime sessionDateFrom = new DateTime(year: 2020, month: 5, day: 1);
-            DateTime sessionDateTo = new DateTime(year: 2020, month: 5, day: 30);
-            if (Factory.GetSession().IsExistAsync(new Session(periods.Last().Id, sessionDateFrom, sessionDateTo)).Result == null)
-            {
-                Assert.IsTrue(Factory.GetSession().InsertAsync(new Session(periods.Last().Id, sessionDateFrom, sessionDateTo)).Result);
-            }
             sessions = Factory.GetSession().ReadAllAsync().Result;
-
-            // Add subject
-            if (Factory.GetSubject().IsExistAsync(new Subject("Math")).Result == null)
-            {
-                Assert.IsTrue(Factory.GetSubject().InsertAsync(new Subject("Math")).Result);
-            }
             subject = Factory.GetSubject().ReadAllAsync().Result;
-
-            //Add examiner
-            if (Factory.GetExaminer().IsExistAsync(new Examiner("Ivan", "Ivanov", "Ivanovich")).Result == null)
-            {
-                Assert.IsTrue(Factory.GetExaminer().InsertAsync(new Examiner("Ivan", "Ivanov", "Ivanovich")).Result);
-            }
             examiners = Factory.GetExaminer().ReadAllAsync().Result;
-
-            //Add specialty
-            if (Factory.GetSpecialty().IsExistAsync(new Specialty("Engineer")).Result == null)
-            {
-                Assert.IsTrue(Factory.GetSpecialty().InsertAsync(new Specialty("Engineer")).Result);
-            }
             specialties = Factory.GetSpecialty().ReadAllAsync().Result;
-
-            // Add group
-            if (Factory.GetGroup().IsExistAsync(new Group("PE", specialties.Last().Id)).Result == null)
-            {
-                Assert.IsTrue(Factory.GetGroup().InsertAsync(new Group("PE", specialties.Last().Id)).Result);
-            }
             groups = Factory.GetGroup().ReadAllAsync().Result;
-
-
-
-            // Add education form
-            if (Factory.GetEducationForm().IsExistAsync(new EducationForm("Daytime")).Result == null)
-            {
-                Assert.IsTrue(Factory.GetEducationForm().InsertAsync(new EducationForm("Daytime")).Result);
-            }
-            if (Factory.GetEducationForm().IsExistAsync(new EducationForm("Extramural")).Result == null)
-            {
-                Assert.IsTrue(Factory.GetEducationForm().InsertAsync(new EducationForm("Extramural")).Result);
-            }
             education_forms = Factory.GetEducationForm().ReadAllAsync().Result;
-
-            // Add test form
-            if (Factory.GetTestForm().IsExistAsync(new TestForm("Exam")).Result == null)
-            {
-                Assert.IsTrue(Factory.GetTestForm().InsertAsync(new TestForm("Exam")).Result);
-            }
-            if (Factory.GetTestForm().IsExistAsync(new TestForm("Credit")).Result == null)
-            {
-                Assert.IsTrue(Factory.GetTestForm().InsertAsync(new TestForm("Credit")).Result);
-            }
             test_forms = Factory.GetTestForm().ReadAllAsync().Result;
-
-            // Add student
-            DateTime BirthDate = new DateTime(year: 1992, month: 4, day: 28);
-            if (Factory.GetStudent().IsExistAsync(new Student("Andrey", "Samusenko", "Genadievich", genders.Last().Id, BirthDate, groups.Last().Id, education_forms.Last().Id)).Result == null)
-            {
-                Assert.IsTrue(Factory.GetStudent().InsertAsync(new Student("Andrey", "Samusenko", "Genadievich", genders.Last().Id, BirthDate, groups.Last().Id, education_forms.Last().Id)).Result);
-            }
             students = Factory.GetStudent().ReadAllAsync().Result;
-
-            // Add schedule
-            DateTime ScheduleDate = new DateTime(year: 1992, month: 4, day: 28);
-            if (Factory.GetSchedule().IsExistAsync(new Schedule(ScheduleDate, subject.Last().Id, groups.Last().Id, groups.Last().Id, test_forms.Last().Id, examiners.Last().Id)).Result == null)
-            {
-                Assert.IsTrue(Factory.GetSchedule().InsertAsync(new Schedule(ScheduleDate, subject.Last().Id, sessions.Last().Id, groups.Last().Id, test_forms.Last().Id, examiners.Last().Id)).Result);
-            }
             schedules = Factory.GetSchedule().ReadAllAsync().Result;
-
         }
-
-        /// <summary>
-        /// Cleanup DB
-        /// </summary>
-        //[TestCleanup]
-        //void Cleanup() 
-        //{
-        //}
-
 
         [TestMethod]
         [DataRow("Man", "Woman")]
         public void GenderTests(string name, string name_update)
         {
-            //SetUp();
-
             //Create.
             Assert.IsTrue(Factory.GetGender().InsertAsync(new Gender(name)).Result);
 
@@ -163,10 +95,10 @@ namespace UnitTestProject1
             Assert.IsNotNull(gender_list);
 
             //Update.
-            //Assert.IsTrue(Factory.GetGender().UpdateAsync(new Gender(gender_list.Last().Id, name_update)).Result);
+            Assert.IsTrue(Factory.GetGender().UpdateAsync(new Gender(gender_list.Last().Id, name_update)).Result);
 
             //Is exist
-            //Assert.IsNotNull(Factory.GetGender().IsExistAsync(new Gender(gender_list.Last().Id, name_update)).Result);
+            Assert.IsNotNull(Factory.GetGender().IsExistAsync(new Gender(gender_list.Last().Id, name_update)).Result);
 
             //Delete.
             Assert.IsTrue(Factory.GetGender().DeleteAsync(gender_list.Last().Id).Result);
@@ -184,10 +116,10 @@ namespace UnitTestProject1
             Assert.IsNotNull(result_list);
 
             //Update.
-            //Assert.IsTrue(Factory.GetResult().UpdateAsync(new Result(result_list.Last().Id, sessions.Last().Id, subject.Last().Id, students.Last().Id, update_mark)).Result);
+            Assert.IsTrue(Factory.GetResult().UpdateAsync(new Result(result_list.Last().Id, sessions.Last().Id, subject.Last().Id, students.Last().Id, update_mark)).Result);
 
             //Is exist
-            //Assert.IsNotNull(Factory.GetResult().IsExistAsync(new Result(result_list.Last().Id, sessions.Last().Id, subject.Last().Id, students.Last().Id, update_mark)).Result);
+            Assert.IsNotNull(Factory.GetResult().IsExistAsync(new Result(result_list.Last().Id, sessions.Last().Id, subject.Last().Id, students.Last().Id, update_mark)).Result);
 
             //Delete.
             Assert.IsTrue(Factory.GetResult().DeleteAsync(result_list.Last().Id).Result);
@@ -206,10 +138,10 @@ namespace UnitTestProject1
             Assert.IsNotNull(list);
 
             //Update.
-            //Assert.IsTrue(Factory.GetSchedule().UpdateAsync(new Schedule(list.Last().Id, new_date, subject.Last().Id, sessions.Last().Id, groups.Last().Id, education_forms.Last().Id, examiners.Last().Id)).Result);
+            Assert.IsTrue(Factory.GetSchedule().UpdateAsync(new Schedule(list.Last().Id, new_date, subject.Last().Id, sessions.Last().Id, groups.Last().Id, education_forms.Last().Id, examiners.Last().Id)).Result);
 
             //Is exist
-            //Assert.IsNotNull(Factory.GetSchedule().IsExistAsync(new Schedule(list.Last().Id, new_date, subject.Last().Id, sessions.Last().Id, groups.Last().Id, education_forms.Last().Id, examiners.Last().Id)).Result);
+            Assert.IsNotNull(Factory.GetSchedule().IsExistAsync(new Schedule(list.Last().Id, new_date, subject.Last().Id, sessions.Last().Id, groups.Last().Id, education_forms.Last().Id, examiners.Last().Id)).Result);
 
             //Delete.
             Assert.IsTrue(Factory.GetSchedule().DeleteAsync(list.Last().Id).Result);
@@ -228,7 +160,7 @@ namespace UnitTestProject1
             Assert.IsNotNull(session_list);
 
             //Update (Rotate Date).
-            //Assert.IsTrue(Factory.GetSession().UpdateAsync(new Session(session_list.Last().Id, periods.Last().Id, dateFrom, dateTo)).Result);
+            Assert.IsTrue(Factory.GetSession().UpdateAsync(new Session(session_list.Last().Id, periods.Last().Id, dateFrom, dateTo)).Result);
 
             //Delete.
             Assert.IsTrue(Factory.GetSession().DeleteAsync(session_list.Last().Id).Result);
@@ -247,7 +179,7 @@ namespace UnitTestProject1
             Assert.IsNotNull(group_list);
 
             //Update.
-            //Assert.IsTrue(Factory.GetGroup().UpdateAsync(new Group(group_list.Last().Id, name + "Update", specialties.Last().Id)).Result);
+            Assert.IsTrue(Factory.GetGroup().UpdateAsync(new Group(group_list.Last().Id, name + "Update", specialties.Last().Id)).Result);
 
             //Delete.
             Assert.IsTrue(Factory.GetGroup().DeleteAsync(group_list.Last().Id).Result);
@@ -266,7 +198,7 @@ namespace UnitTestProject1
             Assert.IsNotNull(student_list);
 
             //Update (Rotate (name-surname))
-            //Assert.IsTrue(Factory.GetStudent().UpdateAsync(new Student(student_list.Last().Id, name, surname, midlename, genders.Last().Id, date, groups.Last().Id, education_forms.Last().Id)).Result);
+            Assert.IsTrue(Factory.GetStudent().UpdateAsync(new Student(student_list.Last().Id, name, surname, midlename, genders.Last().Id, date, groups.Last().Id, education_forms.Last().Id)).Result);
 
             //Delete.
             Assert.IsTrue(Factory.GetStudent().DeleteAsync(student_list.Last().Id).Result);
@@ -284,7 +216,7 @@ namespace UnitTestProject1
             Assert.IsNotNull(subjects_list);
 
             //Update.
-            //Assert.IsTrue(Factory.GetSubject().UpdateAsync(new Subject(subjects_list.Last().Id, name + "Update")).Result);
+            Assert.IsTrue(Factory.GetSubject().UpdateAsync(new Subject(subjects_list.Last().Id, name + "Update")).Result);
 
             //Delete.
             Assert.IsTrue(Factory.GetSubject().DeleteAsync(subjects_list.Last().Id).Result);
@@ -302,7 +234,7 @@ namespace UnitTestProject1
             Assert.IsNotNull(testForm_list);
 
             //Update.
-            //Assert.IsTrue(Factory.GetTestForm().UpdateAsync(new TestForm(testForm_list.Last().Id, name_update)).Result);
+            Assert.IsTrue(Factory.GetTestForm().UpdateAsync(new TestForm(testForm_list.Last().Id, name_update)).Result);
 
             //Delete.
             Assert.IsTrue(Factory.GetTestForm().DeleteAsync(testForm_list.Last().Id).Result);
@@ -320,7 +252,7 @@ namespace UnitTestProject1
             Assert.IsNotNull(forms_list);
 
             //Update.
-            //Assert.IsTrue(Factory.GetEducationForm().UpdateAsync(new EducationForm(forms_list.Last().Id, name_update)).Result);
+            Assert.IsTrue(Factory.GetEducationForm().UpdateAsync(new EducationForm(forms_list.Last().Id, name_update)).Result);
 
             //Delete.
             Assert.IsTrue(Factory.GetEducationForm().DeleteAsync(forms_list.Last().Id).Result);
@@ -338,11 +270,10 @@ namespace UnitTestProject1
             Assert.IsNotNull(period_list);
 
             //Update.
-            //Assert.IsTrue(Factory.GetSessionPeriod().UpdateAsync(new SessionPeriod(period_list.Last().Id, name_update)).Result);
+            Assert.IsTrue(Factory.GetSessionPeriod().UpdateAsync(new SessionPeriod(period_list.Last().Id, name_update)).Result);
 
             //Delete.
             Assert.IsTrue(Factory.GetSessionPeriod().DeleteAsync(period_list.Last().Id).Result);
-
         }
     }
 }

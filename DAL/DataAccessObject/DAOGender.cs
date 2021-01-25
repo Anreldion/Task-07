@@ -89,8 +89,8 @@ namespace DataAccessLayer.DataAccessObject
                 {
                     await Task.Run(() =>
                     {
-                        Gender gender = db.GetTable<Gender>().FirstOrDefault(g => g.Id == data.Id);
-                        gender.Name = data.Name;
+                        Gender genders = db.GetTable<Gender>().FirstOrDefault(g => g.Id == data.Id);
+                        genders.Name = data.Name;
                         db.SubmitChanges();
                     }).ConfigureAwait(false);
                 }

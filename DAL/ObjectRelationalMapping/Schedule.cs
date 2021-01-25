@@ -86,30 +86,5 @@ namespace DataAccessLayer.ObjectRelationalMapping
             TestFormId = testFormId;
             ExaminerID = examinerID;
         }
-        /// <inheritdoc cref="object.Equals(object?)"/>
-        public override bool Equals(object obj)
-        {
-            return obj is Schedule schedule &&
-                   Id == schedule.Id &&
-                   Date == schedule.Date &&
-                   SubjectId == schedule.SubjectId &&
-                   SessionId == schedule.SessionId &&
-                   GroupId == schedule.GroupId &&
-                   TestFormId == schedule.TestFormId &&
-                   ExaminerID == schedule.ExaminerID;
-        }
-        /// <inheritdoc cref="object.GetHashCode"/>
-        public override int GetHashCode()
-        {
-            int hashCode = -1561300885;
-            hashCode = hashCode * -1521134295 + Id.GetHashCode();
-            hashCode = hashCode * -1521134295 + Date.GetHashCode();
-            hashCode = hashCode * -1521134295 + SubjectId.GetHashCode();
-            hashCode = hashCode * -1521134295 + SessionId.GetHashCode();
-            hashCode = hashCode * -1521134295 + GroupId.GetHashCode();
-            hashCode = hashCode * -1521134295 + TestFormId.GetHashCode();
-            hashCode = hashCode * -1521134295 + ExaminerID.GetHashCode();
-            return hashCode;
-        }
     }
 }
