@@ -9,52 +9,17 @@ namespace DataAccessLayer.DataAccessObject
     /// <summary>
     /// DAO <see cref="Student"/> functionality
     /// </summary>
-    public class DAOStudent : IDAO<Student>
+    public class DAOStudent : DAO<Student>
     {
-        private string connectionString;
-
         /// <summary>
         /// Class constructor <see cref="DAOEducationForm"/>
         /// </summary>
         /// <param name="connectionString">Database connection string</param>
-        public DAOStudent(string connectionString)
+        public DAOStudent(string connectionString) : base(connectionString)
         {
-            this.connectionString = connectionString;
         }
 
-        public async Task<bool> DeleteAsync(int id)
-        {
-            try
-            {
-                using (DataContext db = new DataContext(connectionString))
-                {
-                    await Task.Run(() => { db.GetTable<Student>().DeleteOnSubmit(db.GetTable<Student>().FirstOrDefault(g => g.Id == id)); db.SubmitChanges(); }).ConfigureAwait(false);
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public async Task<bool> InsertAsync(Student data)
-        {
-            try
-            {
-                using (DataContext db = new DataContext(connectionString))
-                {
-                    await Task.Run(() => { db.GetTable<Student>().InsertOnSubmit(data); db.SubmitChanges(); }).ConfigureAwait(false);
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public async Task<Student> IsExistAsync(Student data)
+        public override async Task<Student> IsExistAsync(Student data)
         {
             try
             {
@@ -77,37 +42,7 @@ namespace DataAccessLayer.DataAccessObject
             }
         }
 
-        public async Task<IEnumerable<Student>> ReadAllAsync()
-        {
-            try
-            {
-                using (DataContext db = new DataContext(connectionString))
-                {
-                    return await Task.Run(() => db.GetTable<Student>().ToList()).ConfigureAwait(false);
-                }
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        public async Task<Student> ReadAsync(int id)
-        {
-            try
-            {
-                using (DataContext db = new DataContext(connectionString))
-                {
-                    return await Task.Run(() => db.GetTable<Student>().FirstOrDefault(g => g.Id == id)).ConfigureAwait(false);
-                }
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        public async Task<bool> UpdateAsync(Student data)
+        public override async Task<bool> UpdateAsync(Student data)
         {
             try
             {

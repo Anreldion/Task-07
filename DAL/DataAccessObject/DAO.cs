@@ -8,30 +8,31 @@ using System.Threading.Tasks;
 namespace DataAccessLayer.DataAccessObject
 {
     /// <summary>
-    /// Универсальный объект доступа к данным (DAO)
+    /// Generic data access object (DAO)
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">Class</typeparam>
     public abstract class DAO<T> : IDAO<T> where T : class
     {
-        DataContext db;
-
+        protected string connectionString;
         public DAO(string connectionString)
         {
-            db = new DataContext(connectionString);
-            db.DeferredLoadingEnabled = false;
+            this.connectionString = connectionString;
         }
 
-        public abstract Task<bool> IsExistAsync(T data);
         public abstract Task<bool> UpdateAsync(T entity);
+        public abstract Task<T> IsExistAsync(T data);
+
         public async Task<bool> InsertAsync(T data)
         {
             try
             {
-                await Task.Run(() =>
+                using (DataContext db = new DataContext(connectionString))
                 {
-                    db.GetTable<T>().InsertOnSubmit(data); db.SubmitChanges();
-                }).ConfigureAwait(false);
-
+                    await Task.Run(() =>
+                    {
+                        db.GetTable<T>().InsertOnSubmit(data); db.SubmitChanges();
+                    }).ConfigureAwait(false);
+                }
                 return true;
             }
             catch
@@ -46,7 +47,10 @@ namespace DataAccessLayer.DataAccessObject
 
             try
             {
-                return db.GetTable<T>().FirstOrDefault(whereExpression);
+                using (DataContext db = new DataContext(connectionString))
+                {
+                    return db.GetTable<T>().FirstOrDefault(whereExpression);
+                }
             }
             catch
             {
@@ -57,7 +61,10 @@ namespace DataAccessLayer.DataAccessObject
         {
             try
             {
-                return await Task.Run(() => db.GetTable<T>().ToList()).ConfigureAwait(false);
+                using (DataContext db = new DataContext(connectionString))
+                {
+                    return await Task.Run(() => db.GetTable<T>().ToList()).ConfigureAwait(false);
+                }
             }
             catch
             {
@@ -72,11 +79,14 @@ namespace DataAccessLayer.DataAccessObject
 
             try
             {
-                await Task.Run(() =>
+                using (DataContext db = new DataContext(connectionString))
                 {
-                    db.GetTable<T>().DeleteOnSubmit(db.GetTable<T>().FirstOrDefault(whereExpression));
-                    db.SubmitChanges();
-                }).ConfigureAwait(false);
+                    await Task.Run(() =>
+                    {
+                        db.GetTable<T>().DeleteOnSubmit(db.GetTable<T>().FirstOrDefault(whereExpression));
+                        db.SubmitChanges();
+                    }).ConfigureAwait(false);
+                }
                 return true;
 
             }
@@ -86,9 +96,6 @@ namespace DataAccessLayer.DataAccessObject
             }
         }
 
-        Task<T> IDAO<T>.IsExistAsync(T data)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

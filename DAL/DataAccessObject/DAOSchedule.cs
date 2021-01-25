@@ -1,5 +1,4 @@
 ﻿using DataAccessLayer.ObjectRelationalMapping;
-using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,52 +8,17 @@ namespace DataAccessLayer.DataAccessObject
     /// <summary>
     /// DAO <see cref="Schedule"/> functionality
     /// </summary>
-    public class DAOSchedule : IDAO<Schedule>
+    public class DAOSchedule : DAO<Schedule>
     {
-        private string connectionString;
-
         /// <summary>
         /// Class constructor <see cref="DAOSchedule"/>
         /// </summary>
         /// <param name="connectionString">Database connection string</param>
-        public DAOSchedule(string connectionString)
+        public DAOSchedule(string connectionString) : base(connectionString)
         {
-            this.connectionString = connectionString;
         }
 
-        public async Task<bool> DeleteAsync(int id)
-        {
-            try
-            {
-                using (DataContext db = new DataContext(connectionString))
-                {
-                    await Task.Run(() => { db.GetTable<Schedule>().DeleteOnSubmit(db.GetTable<Schedule>().FirstOrDefault(g => g.Id == id)); db.SubmitChanges(); }).ConfigureAwait(false);
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public async Task<bool> InsertAsync(Schedule data)
-        {
-            try
-            {
-                using (DataContext db = new DataContext(connectionString))
-                {
-                    await Task.Run(() => { db.GetTable<Schedule>().InsertOnSubmit(data); db.SubmitChanges(); }).ConfigureAwait(false);
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public async Task<Schedule> IsExistAsync(Schedule data)
+        public override async Task<Schedule> IsExistAsync(Schedule data)
         {
             try
             {
@@ -76,37 +40,7 @@ namespace DataAccessLayer.DataAccessObject
             }
         }
 
-        public async Task<IEnumerable<Schedule>> ReadAllAsync()
-        {
-            try
-            {
-                using (DataContext db = new DataContext(connectionString))
-                {
-                    return await Task.Run(() => db.GetTable<Schedule>().ToList()).ConfigureAwait(false);
-                }
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        public async Task<Schedule> ReadAsync(int id)
-        {
-            try
-            {
-                using (DataContext db = new DataContext(connectionString))
-                {
-                    return await Task.Run(() => db.GetTable<Schedule>().FirstOrDefault(g => g.Id == id)).ConfigureAwait(false);
-                }
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        public async Task<bool> UpdateAsync(Schedule data)
+        public override async Task<bool> UpdateAsync(Schedule data)
         {
             try
             {
@@ -131,5 +65,4 @@ namespace DataAccessLayer.DataAccessObject
             }
         }
     }
-
 }

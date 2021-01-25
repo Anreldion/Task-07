@@ -9,52 +9,17 @@ namespace DataAccessLayer.DataAccessObject
     /// <summary>
     /// DAO <see cref="SessionPeriod"/> functionality
     /// </summary>
-    public class DAOSessionPeriod : IDAO<SessionPeriod>
+    public class DAOSessionPeriod : DAO<SessionPeriod>
     {
-        private string connectionString;
-
         /// <summary>
         /// Class constructor <see cref="DAOSessionPeriod"/>
         /// </summary>
         /// <param name="connectionString">Database connection string</param>
-        public DAOSessionPeriod(string connectionString)
+        public DAOSessionPeriod(string connectionString) : base(connectionString)
         {
-            this.connectionString = connectionString;
         }
 
-        public async Task<bool> DeleteAsync(int id)
-        {
-            try
-            {
-                using (DataContext db = new DataContext(connectionString))
-                {
-                    await Task.Run(() => { db.GetTable<SessionPeriod>().DeleteOnSubmit(db.GetTable<SessionPeriod>().FirstOrDefault(g => g.Id == id)); db.SubmitChanges(); }).ConfigureAwait(false);
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public async Task<bool> InsertAsync(SessionPeriod data)
-        {
-            try
-            {
-                using (DataContext db = new DataContext(connectionString))
-                {
-                    await Task.Run(() => { db.GetTable<SessionPeriod>().InsertOnSubmit(data); db.SubmitChanges(); }).ConfigureAwait(false);
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public async Task<SessionPeriod> IsExistAsync(SessionPeriod data)
+        public override async Task<SessionPeriod> IsExistAsync(SessionPeriod data)
         {
             try
             {
@@ -69,37 +34,7 @@ namespace DataAccessLayer.DataAccessObject
             }
         }
 
-        public async Task<IEnumerable<SessionPeriod>> ReadAllAsync()
-        {
-            try
-            {
-                using (DataContext db = new DataContext(connectionString))
-                {
-                    return await Task.Run(() => db.GetTable<SessionPeriod>().ToList()).ConfigureAwait(false);
-                }
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        public async Task<SessionPeriod> ReadAsync(int id)
-        {
-            try
-            {
-                using (DataContext db = new DataContext(connectionString))
-                {
-                    return await Task.Run(() => db.GetTable<SessionPeriod>().FirstOrDefault(g => g.Id == id)).ConfigureAwait(false);
-                }
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        public async Task<bool> UpdateAsync(SessionPeriod data)
+        public override async Task<bool> UpdateAsync(SessionPeriod data)
         {
             try
             {
