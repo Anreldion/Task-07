@@ -3,7 +3,7 @@
 namespace BLL.Task_07_Reports.AverageBallforExaminers
 {
     /// <summary>
-    /// Класс содержит информацию о среднем балле по экзаменатору
+    /// Class containing information about the average score by each examiner.
     /// </summary>
     public class AverageBallforExaminersUnit
     {

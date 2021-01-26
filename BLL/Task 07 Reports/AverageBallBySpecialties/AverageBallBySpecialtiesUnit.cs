@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BLL.Task_07_Reports.AverageBallBySpecialties
 {
     /// <summary>
-    /// Класс содержит информацию о среднем балле по специальности
+    /// Class containing information about the average score for specialty
     /// </summary>
     public class AverageBallBySpecialtiesUnit
     {

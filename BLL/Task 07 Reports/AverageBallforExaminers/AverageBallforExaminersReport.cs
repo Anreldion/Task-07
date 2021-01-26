@@ -6,7 +6,7 @@ using System.Linq;
 namespace BLL.Task_07_Reports.AverageBallforExaminers
 {
     /// <summary>
-    /// Класс позволяет получить информацию в рамках одной сессии о среднем бале по каждому экзаменатору.
+    /// Class allowing to get information about the average score by each examiner in one session.
     /// </summary>
     public class AverageBallforExaminersReport : Report
     {
@@ -18,7 +18,7 @@ namespace BLL.Task_07_Reports.AverageBallforExaminers
         {
         }
         /// <summary>
-        /// Получить отчёт с информацией в рамках одной сессии о среднем бале по каждому экзаменатору
+        /// Get information report about the average score by each examiner in one session.
         /// </summary>
         /// <param name="sessionId">Session ID</param>
         /// <returns></returns>
@@ -54,7 +54,7 @@ namespace BLL.Task_07_Reports.AverageBallforExaminers
             return averengeList.Select(s => new AverageBallforExaminersUnit(GetExaminerName(s.ExaminerId), s.AverengeScore));
         }
         /// <summary>
-        /// Получить отчёт с информацией в рамках одной сессии о среднем бале по каждому экзаменатору
+        /// Get information report about the average score by each examiner in one session.
         /// </summary>
         /// <param name="sessionId">Session ID</param>
         /// <param name="orderBy">Order by func</param>

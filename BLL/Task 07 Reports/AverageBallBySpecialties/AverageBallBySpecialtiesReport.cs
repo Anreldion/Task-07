@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace BLL.Task_07_Reports.AverageBallBySpecialties
 {
     /// <summary>
-    /// Класс для получения информации в рамках одной сессии о среднем бале по каждой специальности
+    /// Class for getting information about the average score for each specialty in one session.
     /// </summary>
     public class AverageBallBySpecialtiesReport : Report
     {
@@ -21,9 +21,9 @@ namespace BLL.Task_07_Reports.AverageBallBySpecialties
         {
         }
         /// <summary>
-        /// Получить отчёт с информацией в рамках одной сессии о среднем бале по каждой специальности
+        /// Get information report about the average score for each specialty in one session.
         /// </summary>
-        /// <param name="sessionId"></param>
+        /// <param name="sessionId">Session ID</param>
         /// <returns></returns>
         public AverageBallBySpecialtiesTable GetReport(int sessionId)
         {
@@ -32,7 +32,7 @@ namespace BLL.Task_07_Reports.AverageBallBySpecialties
         /// <summary>
         /// Get list with <see cref="AverageBallBySpecialtiesUnit"/>
         /// </summary>
-        /// <param name="sessionId"></param>
+        /// <param name="sessionId">Session ID</param>
         /// <returns>list with <see cref="AverageBallBySpecialtiesUnit"/></returns>
         private IEnumerable<AverageBallBySpecialtiesUnit> GetRow(int sessionId)
         {
@@ -58,7 +58,7 @@ namespace BLL.Task_07_Reports.AverageBallBySpecialties
             return averengeList.Select(s => new AverageBallBySpecialtiesUnit(GetSpecialtyName(s.specialtyId), s.AverengeScore));
         }
         /// <summary>
-        /// Получить отчёт с информацией в рамках одной сессии о среднем бале по каждой специальности
+        /// Get information report about the average score for each specialty in one session.
         /// </summary>
         /// <param name="sessionId">Session ID</param>
         /// <param name="orderBy">Order by func</param>
@@ -73,7 +73,7 @@ namespace BLL.Task_07_Reports.AverageBallBySpecialties
         /// <summary>
         /// Get session period name.
         /// </summary>
-        /// <param name="sessionId"></param>
+        /// <param name="sessionId">Session ID</param>
         /// <returns>Session period name</returns>
         string GetSessionPeriodName(int sessionId)
         {

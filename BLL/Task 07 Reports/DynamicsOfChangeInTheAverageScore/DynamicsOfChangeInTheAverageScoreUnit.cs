@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace BLL.Task_07_Reports.DynamicsOfChangeInTheAverageScore
 {
     /// <summary>
-    /// Класс содержит информацию о среденем балле по сессии
+    /// Class containing information about the average score by session.
     /// </summary>
     public class DynamicsOfChangeInTheAverageScoreUnit
     {
         /// <summary>
-        /// 
+        /// Class constructor <see cref="DynamicsOfChangeInTheAverageScoreUnit"/>
         /// </summary>
         /// <param name="sessionPeriod"></param>
         /// <param name="averageBall"></param>

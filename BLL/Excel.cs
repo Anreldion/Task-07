@@ -110,7 +110,7 @@ namespace BusinessLogicLayer
         }
 
         /// <summary>
-        ///  Form a list of students to be expelled, formed by group.
+        /// Form a list of students to be expelled, formed by group.
         /// </summary>
         /// <param name="data_table">List contains <see cref="ToBeExpelledStudentTable"/></param>
         /// <param name="filePath">The path to the file</param>
@@ -250,7 +250,7 @@ namespace BusinessLogicLayer
         }
 
         /// <summary>
-        /// Класс позволяет получить информацию в рамках одной сессии о среднем бале по каждому экзаменатору.
+        /// Get information about the average score by each examiner in one session.
         /// </summary>
         /// <param name="data"><see cref="AverageBallforExaminersTable"/> object</param>
         /// <param name="filePath">The path to the file</param>
@@ -291,7 +291,7 @@ namespace BusinessLogicLayer
         }
 
         /// <summary>
-        /// В рамках всех сессий вывести в виде таблицы динамику изменения среднего бала по каждому предмету по годам
+        /// Get the dynamics of changes in the average score for each subject over the years within all sessions.
         /// </summary>
         /// <param name="data_table">List contains <see cref="DynamicsOfChangeInTheAverageScoreTable"/></param>
         /// <param name="filePath">The path to the file</param>
@@ -334,7 +334,7 @@ namespace BusinessLogicLayer
         }
 
         /// <summary>
-        /// Получить информацию в рамках одной сессии о среднем бале по каждой специальности
+        /// Get information about the average score for each specialty in one session.
         /// </summary>
         /// <param name="data"><see cref="AverageBallBySpecialtiesTable"/> object</param>
         /// <param name="filePath">The path to the file</param>

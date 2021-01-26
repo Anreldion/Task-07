@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BLL.Task_07_Reports.AverageBallBySpecialties
 {
     /// <summary>
-    /// Class containing the name of the session and a list of average ball by specialties
+    /// Class containing the name of the session and a list of average score by specialties.
     /// </summary>
     public class AverageBallBySpecialtiesTable
     {

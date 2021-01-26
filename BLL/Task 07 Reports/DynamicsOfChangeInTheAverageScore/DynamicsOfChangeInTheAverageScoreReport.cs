@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace BLL.Task_07_Reports.DynamicsOfChangeInTheAverageScore
 {
     /// <summary>
-    /// В рамках всех сессий вывести в виде таблицы динамику изменения среднего бала по каждому предмету по годам
+    /// Class allowing to get the dynamics of changes in the average score for each subject over the years within all sessions.
     /// </summary>
     public class DynamicsOfChangeInTheAverageScoreReport : Report
     {
@@ -19,6 +19,10 @@ namespace BLL.Task_07_Reports.DynamicsOfChangeInTheAverageScore
         public DynamicsOfChangeInTheAverageScoreReport(string connectionString) : base(connectionString)
         {
         }
+        /// <summary>
+        /// Get the dynamics of changes in the average score for each subject over the years within all sessions.
+        /// </summary>
+        /// <returns>List with <see cref="DynamicsOfChangeInTheAverageScoreTable"/></returns>
         public IEnumerable<DynamicsOfChangeInTheAverageScoreTable> GetReport()
         {
             return GetSubjectsId().Select(subjectId => new DynamicsOfChangeInTheAverageScoreTable(GetRow(subjectId), GetSubjectName(subjectId))).ToList();
@@ -46,10 +50,10 @@ namespace BLL.Task_07_Reports.DynamicsOfChangeInTheAverageScore
             return averengeBySession.Select(s => new DynamicsOfChangeInTheAverageScoreUnit(GetSessionPeriodName(s.SessionId), s.AverengeScore));
         }
         /// <summary>
-        /// 
+        /// Get the dynamics of changes in the average score for each subject over the years within all sessions.
         /// </summary>
         /// <param name="orderBy">Sorting elements of the collection</param>
-        /// <returns></returns>
+        /// <returns>List with <see cref="DynamicsOfChangeInTheAverageScoreTable"/></returns>
         public IEnumerable<DynamicsOfChangeInTheAverageScoreTable> GetReport(Func<DynamicsOfChangeInTheAverageScoreUnit, object> orderBy)
         {
             IEnumerable<DynamicsOfChangeInTheAverageScoreTable> list = GetReport();

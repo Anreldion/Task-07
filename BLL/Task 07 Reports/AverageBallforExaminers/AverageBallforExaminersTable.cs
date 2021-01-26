@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BLL.Task_07_Reports.AverageBallforExaminers
 {
     /// <summary>
-    /// Class containing the name of the session and a list of average ball for examiners
+    /// Class containing the name of the session and a list of average score for examiners.
     /// </summary>
     public class AverageBallforExaminersTable
     {
